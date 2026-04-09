@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import contactImg from '../../contact.jpg';
 import { Container } from './Container';
@@ -161,7 +160,6 @@ export function AboutSection() {
     </section>
   );
 }
-
 // ─────────────────────────────────────────────
 // Services
 // ─────────────────────────────────────────────
@@ -403,7 +401,7 @@ export function Footer() {
             <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">Quick Links</h4>
             <ul className="space-y-4 text-sm font-medium">
               {[
-                { label: 'Home', href: '#' },
+                { label: 'Home', href: '' },
                 { label: 'Services', href: '#services' },
                 { label: 'About', href: '#about' },
                 { label: 'Resources', href: '#resources' },
