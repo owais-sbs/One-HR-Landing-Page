@@ -7,7 +7,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTe
   rows?: number;
   inputClassName?: string;
 }
-
 export function Input({ label, type = 'text', options, className = '', inputClassName = '', ...props }: InputProps) {
   const baseClasses = `w-full px-5 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all ${inputClassName || 'rounded'}`;
 

@@ -57,21 +57,41 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="relative w-full flex justify-center lg:justify-end mt-12 lg:mt-0 lg:pr-10">
-            <div className="absolute top-[5%] right-[5%] w-[320px] h-[320px] md:w-[420px] md:h-[420px] rotate-[-45deg] bg-gray-100/80 rounded-[60px] md:rounded-[80px] -translate-x-[20%] translate-y-[10%] -z-10" />
-            <div className="relative w-[320px] h-[320px] md:w-[420px] md:h-[420px] rotate-[45deg] rounded-[60px] md:rounded-[80px] overflow-hidden shadow-2xl shadow-gray-400/20 group">
-              <div className="absolute inset-0 w-[150%] h-[150%] -top-[25%] -left-[25%] rotate-[-45deg]">
-                <Image
-                  src="https://i.pinimg.com/736x/42/54/0e/42540e6878e714a67411afcd9595d91e.jpg"
-                  alt="Professional HR solutions"
-                  fill
-                  className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
+          <div className="relative w-full flex justify-center lg:justify-end mt-12 lg:mt-0 perspective-[1200px]">
+            {/* Glow blob */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[75%] h-[75%] bg-gradient-to-br from-blue-300/30 to-sky-400/20 rounded-full blur-3xl" />
+            </div>
+
+            {/* Dashboard image */}
+            <div className="relative w-full rounded-2xl overflow-hidden z-10 shadow-[0_40px_100px_-15px_rgba(37,130,255,0.3)] border border-blue-100/60">
+              <Image
+                src="/home.jpg"
+                alt="One HR Dashboard"
+                width={900}
+                height={600}
+                className="w-full h-auto block"
+                sizes="(max-width: 768px) 100vw, 900px"
+                priority
+              />
+            </div>
+
+            {/* Floating stat badge */}
+            <div className="absolute -bottom-4 left-0 md:left-2 bg-white rounded-2xl shadow-xl px-5 py-3.5 flex items-center gap-3 z-20 border border-gray-100">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#0ea5e9] flex items-center justify-center shadow">
+                <Users size={18} className="text-white" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-400 font-medium">Active Employees</p>
+                <p className="text-lg font-extrabold text-[#111827] leading-tight">1,240+</p>
               </div>
             </div>
-            <div className="absolute -bottom-8 left-[10%] md:left-[15%] w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-[#2563eb] to-[#38bdf8] shadow-xl z-20" />
+
+            {/* Floating live badge */}
+            <div className="absolute -top-3 right-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2.5 z-20 border border-gray-100">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-xs font-bold text-gray-700">Live Dashboard</p>
+            </div>
           </div>
         </div>
       </Container>
@@ -95,10 +115,10 @@ export function AboutSection() {
             <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-[550px] mx-auto lg:mx-0">
               <div className="flex flex-col gap-4 sm:gap-6">
                 <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-lg">
-                  <Image src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team meeting" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                  <Image src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Analytics dashboard" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <div className="relative w-[70%] aspect-square rounded-2xl overflow-hidden shadow-md -mr-10">
-                  <Image src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="HR Professional" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                  <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Data charts" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
               </div>
               <div className="flex flex-col gap-4 sm:gap-6 transform translate-y-12 sm:translate-y-20">
@@ -107,7 +127,7 @@ export function AboutSection() {
                   <div className="text-sm md:text-base font-semibold leading-tight text-white">Years<br />Experience<br />Working</div>
                 </div>
                 <div className="relative w-full aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden shadow-lg">
-                  <Image src="https://images.unsplash.com/photo-1622675363311-3e1904dc1885?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Office collaboration" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                  <Image src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80" alt="HR software interface" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
               </div>
             </div>
@@ -135,21 +155,7 @@ export function AboutSection() {
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap items-center gap-4 mb-10">
-              <div className="flex -space-x-3">
-                {[
-                  ['https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80', 'Client 1'],
-                  ['https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80', 'Client 2'],
-                  ['https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80', 'Client 3'],
-                  ['https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80', 'Client 4'],
-                ].map(([src, alt]) => (
-                  <Image key={alt} src={src} alt={alt} width={48} height={48} className="rounded-full border-2 border-white shadow-sm object-cover" />
-                ))}
-              </div>
-              <p className="text-sm font-medium text-gray-600 border-l border-gray-200 pl-4 py-2">
-                Join our <span className="font-bold text-[#111827]">5000+</span> satisfied client
-              </p>
-            </div>
+            
             <Button className="rounded-full bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] shadow-lg shadow-blue-500/30 px-8 py-3.5 hover:scale-105 border-0 font-bold transition-all text-white">
               Explore Our Solutions <span className="ml-2">→</span>
             </Button>
@@ -164,21 +170,66 @@ export function AboutSection() {
 // Services
 // ─────────────────────────────────────────────
 const servicesList = [
-  { title: 'Employee Management', description: 'Maintain comprehensive employee records and streamline HR administration from a single centralized hub.', icon: <Users size={24} />, linkText: 'Learn more', linkHref: '#' },
-  { title: 'Attendance Management', description: 'Track employee hours, manage flexible shifts, and monitor overall attendance with precise automated systems.', icon: <Clock size={24} />, linkText: 'Learn more', linkHref: '#' },
-  { title: 'Leave Management', description: 'Simplify time-off requests, actively track employee leave balances, and manage team approvals effortlessly.', icon: <CalendarDays size={24} />, linkText: 'Learn more', linkHref: '#' },
-  { title: 'Payroll Management', description: 'Ensure exact and timely compensation with automated payroll processing and built-in regulatory compliance features.', icon: <Banknote size={24} />, linkText: 'Learn more', linkHref: '#' },
-  { title: 'Reports & Analytics', description: 'Gain valuable insights into your workforce demographics with customizable reporting and data-driven HR analytics.', icon: <BarChart3 size={24} />, linkText: 'Learn more', linkHref: '#' },
-  { title: 'Employee Self-Service', description: 'Empower your team with a dedicated portal to update their own profiles, access pay slips, and submit requests.', icon: <UserCog size={24} />, linkText: 'Learn more', linkHref: '#' },
+  {
+    title: 'Employee & Operations',
+    icon: <Users size={28} />,
+    features: [
+      'Centralised digital employee profiles',
+      'Org structure: departments, designations, reporting hierarchies',
+      'Secure role-based document management',
+      'Self-service portal — leave, payslips, profile updates',
+    ],
+  },
+  {
+    title: 'Attendance & Payroll',
+    icon: <Clock size={28} />,
+    features: [
+      'Digital check-in/out, leave requests & automated tracking',
+      'Automated salary calculations & payslip generation',
+      'Real-time dashboards for headcount, attendance & payroll',
+      'Granular role-based access for HR, Finance & Managers',
+    ],
+  },
+  {
+    title: 'Hardware & WhatsApp',
+    icon: <Banknote size={28} />,
+    features: [
+      'Biometric machine integration (fingerprint / face recognition)',
+      'Door access control — auto-grant/revoke on hire or exit',
+      'Payslips, leave notifications & attendance reminders via WhatsApp',
+      'Onboarding documents & holiday broadcasts via WhatsApp',
+    ],
+  },
 ];
 
 export function Services() {
   return (
     <Section id="services" className="bg-gray-50 bg-opacity-30">
       <Heading title="Services We Offer" subtitle="Freedom HR provides custom HR solutions for your business in the most flexible and value driven way." />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
         {servicesList.map((service, idx) => (
-          <Card key={idx} title={service.title} description={service.description} icon={service.icon} linkText={service.linkText} linkHref={service.linkHref} />
+          <div
+            key={idx}
+            className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+          >
+            {/* Top accent bar */}
+            <div className="h-1 w-full bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9]" />
+            <div className="p-8">
+              {/* Icon */}
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-100 flex items-center justify-center text-[#2582ff] mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                {service.icon}
+              </div>
+              <h3 className="text-xl font-bold text-[#111827] mb-5">{service.title}</h3>
+              <ul className="space-y-3">
+                {service.features.map((feat, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
+                    <CheckCircle2 size={16} className="text-[#0ea5e9] mt-0.5 shrink-0" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         ))}
       </div>
     </Section>
@@ -210,7 +261,7 @@ export function WaveSection() {
           <div className="relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/5 rounded-full blur-2xl -z-10" />
             <div className="relative rounded-t-[100px] rounded-bl-[100px] rounded-br-lg overflow-hidden shadow-xl aspect-square max-w-sm mx-auto">
-              <Image src="https://i.pinimg.com/1200x/e6/92/15/e692151bfc86c7d523697aa0dbd1a5d0.jpg" alt="Confident HR Executive" fill className="object-cover" />
+              <Image src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80" alt="HR Analytics Dashboard" fill className="object-cover object-center" />
             </div>
             <div className="absolute -bottom-4 -left-4 grid grid-cols-4 gap-2 z-20">
               {[...Array(12)].map((_, i) => (
@@ -267,43 +318,115 @@ export function Features() {
 }
 
 // ─────────────────────────────────────────────
-// Resources
+// Pricing Plans
 // ─────────────────────────────────────────────
-const focuses = [
-  { title: 'Strategic Advisory', description: 'Partner with our elite consultants to align your human capital strategy directly with your long-term commercial goals.', icon: <Target size={24} className="text-[#0ea5e9]" /> },
-  { title: 'Workforce Optimization', description: "Deploy data-driven analytics to restructure processes and maximize your team's overall productivity.", icon: <TrendingUp size={24} className="text-[#0ea5e9]" /> },
-  { title: 'Culture & Retention', description: 'Build an award-winning organizational culture that effortlessly attracts and retains top-tier industry talent.', icon: <Users size={24} className="text-[#0ea5e9]" /> },
-  { title: 'Ironclad Compliance', description: 'Navigate complex regulatory environments securely with our rigorous, always-updated compliance frameworks.', icon: <ShieldCheck size={24} className="text-[#0ea5e9]" /> },
+const plans = [
+  {
+    name: 'Starter',
+    price: '$49',
+    period: '/month',
+    employeeLimit: 'Up to 50 employees',
+    highlight: false,
+    features: [
+      'Core HR Management',
+      'Leave & Attendance Tracking',
+      'Employee Self-Service Portal',
+      'Basic Document Storage',
+    ],
+    cta: 'Get Started',
+  },
+  {
+    name: 'Professional',
+    price: '$149',
+    period: '/month',
+    employeeLimit: 'Up to 200 employees',
+    highlight: true,
+    features: [
+      'Everything in Starter',
+      'Payroll (1 country)',
+      'Biometric Integration',
+      'Automated WhatsApp Notifications',
+    ],
+    cta: 'Start Free Trial',
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: ' quote',
+    employeeLimit: '200+ employees',
+    highlight: false,
+    features: [
+      'Multi-country Payroll',
+      'Door Access Control',
+      'Full WhatsApp Suite',
+      '24/7 Dedicated Support',
+    ],
+    cta: 'Contact Sales',
+  },
 ];
 
 export function Resources() {
   return (
-    <Section id="resources" className="bg-[#f8fafc] border-t border-gray-100 py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 flex flex-col lg:flex-row">
-          <div className="lg:w-5/12 relative h-80 lg:h-auto">
-            <Image src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Executive HR meeting" fill className="object-cover" />
-            <div className="absolute inset-0 bg-black/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-8">
-              <h3 className="text-3xl font-extrabold text-white mb-2 leading-tight">Elevating Modern <br />Workplaces</h3>
+    <Section id="resources" className="bg-[#f8fafc] border-t border-gray-100">
+      <div className="text-center mb-14">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-[#2582ff] text-xs font-bold uppercase tracking-widest mb-4 border border-blue-100">Subscription Plans</span>
+        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4 tracking-tight">Choose Your Plan</h2>
+        <p className="text-gray-500 text-lg max-w-xl mx-auto">Transparent pricing built for SMBs and growing enterprises. Scale up anytime.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
+        {plans.map((plan, idx) => (
+          <div
+            key={idx}
+            className={`relative flex flex-col rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+              plan.highlight
+                ? 'bg-gradient-to-b from-[#1e3a5f] to-[#0f2340] text-white shadow-2xl shadow-blue-900/30 scale-[1.03]'
+                : 'bg-white border border-gray-100 shadow-md hover:shadow-xl text-[#111827]'
+            }`}
+          >
+            {plan.highlight && (
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9]" />
+            )}
+            {plan.highlight && (
+              <div className="absolute top-5 right-5">
+                <span className="bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow">
+                  Most Popular
+                </span>
+              </div>
+            )}
+
+            <div className="p-8 flex flex-col flex-1">
+              <p className={`text-sm font-bold uppercase tracking-widest mb-3 ${plan.highlight ? 'text-sky-400' : 'text-[#2582ff]'}`}>{plan.name}</p>
+              <div className="flex items-end gap-1 mb-1">
+                <span className={`text-5xl font-extrabold tracking-tight ${plan.highlight ? 'text-white' : 'text-[#111827]'}`}>{plan.price}</span>
+                <span className={`text-base font-medium mb-2 ${plan.highlight ? 'text-sky-300' : 'text-gray-400'}`}>{plan.period}</span>
+              </div>
+              <p className={`text-sm mb-8 ${plan.highlight ? 'text-sky-300/80' : 'text-gray-400'}`}>{plan.employeeLimit}</p>
+
+              <ul className="space-y-3 mb-10 flex-1">
+                {plan.features.map((feat, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? 'bg-sky-500/20' : 'bg-blue-50'}`}>
+                      <CheckCircle2 size={13} className={plan.highlight ? 'text-sky-400' : 'text-[#0ea5e9]'} />
+                    </div>
+                    <span className={plan.highlight ? 'text-sky-100' : 'text-gray-600'}>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="#contact"
+                className={`w-full text-center py-3.5 rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                  plan.highlight
+                    ? 'bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] text-white shadow-lg shadow-blue-500/30'
+                    : 'border-2 border-[#2582ff] text-[#2582ff] hover:bg-[#2582ff] hover:text-white'
+                }`}
+              >
+                {plan.cta}
+              </a>
             </div>
           </div>
-          <div className="lg:w-7/12 p-8 lg:p-14 flex flex-col justify-center">
-            <span className="text-sm font-bold text-[#0ea5e9] uppercase tracking-widest mb-2 block">Our Core Focus</span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-6">Actionable Insights & Growth</h2>
-            <p className="text-gray-500 mb-10 text-lg">We don't just solve immediate problems. We architect robust, sustainable environments where your people can thrive and perform at their absolute best.</p>
-            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-10">
-              {focuses.map((item, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4 border border-blue-100">{item.icon}</div>
-                  <h4 className="text-xl font-bold text-[#111827] mb-2">{item.title}</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </Section>
   );
