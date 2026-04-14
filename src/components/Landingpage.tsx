@@ -494,7 +494,7 @@ export function Footer() {
 
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-extrabold text-white mb-6">One <span className="text-[#0ea5e9]">HR</span></h3>
+            <h3 className="text-2xl font-extrabold text-white mb-6">One HR<span className="text-[#2582ff]">.</span></h3>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed pr-4">
               Empowering businesses through strategic human resource deployment, unwavering compliance, and transformative talent management across the globe.
             </p>

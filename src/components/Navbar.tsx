@@ -7,15 +7,9 @@ export function Navbar() {
   return (
     <nav className="w-full bg-white bg-opacity-95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100 shadow-sm">
       <Container className="flex items-center justify-between py-4">
-        {/* Logo Placeholder */}
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 grid grid-cols-2 gap-0.5">
-            <div className="bg-primary rounded-sm"></div>
-            <div className="bg-primary rounded-sm opacity-60"></div>
-            <div className="bg-primary rounded-sm opacity-60"></div>
-            <div className="bg-primary rounded-sm opacity-30"></div>
-          </div>
-          <span className="text-xl font-bold text-primary tracking-tight">One HR</span>
+        {/* Logo */}
+        <div className="flex items-center">
+          <span className="text-2xl font-extrabold text-[#111827] tracking-tight">One HR<span className="text-[#2582ff]">.</span></span>
         </div>
 
         {/* Links */}
