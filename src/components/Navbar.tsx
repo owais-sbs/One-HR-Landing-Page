@@ -26,10 +26,10 @@ export function Navbar() {
 
         {/* Links */}
         <div className={`hidden md:flex items-center space-x-10 text-sm font-semibold transition-colors ${isScrolled ? 'text-gray-700' : 'text-white/90'}`}>
-          <a href="#" className={`hover:text-[#2582ff] transition-colors`}>Features</a>
-          <a href="#services" className={`hover:text-[#2582ff] transition-colors`}>Enterprise</a>
-          <a href="#about" className={`hover:text-[#2582ff] transition-colors`}>Pricing</a>
-          <a href="#company" className={`hover:text-[#2582ff] transition-colors`}>Company</a>
+          <a href="#features" className={`hover:text-[#2582ff] transition-colors`}>Features</a>
+          <a href="#services" className={`hover:text-[#2582ff] transition-colors`}>Services</a>
+          <a href="#resources" className={`hover:text-[#2582ff] transition-colors`}>Pricing</a>
+          <a href="#contact" className={`hover:text-[#2582ff] transition-colors`}>Contact</a>
         </div>
 
         {/* CTA */}
