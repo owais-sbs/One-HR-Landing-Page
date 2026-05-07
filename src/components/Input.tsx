@@ -7,33 +7,30 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTe
   rows?: number;
   inputClassName?: string;
 }
-
 export function Input({ label, type = 'text', options, className = '', inputClassName = '', ...props }: InputProps) {
-  const baseClasses =
-    `w-full border border-white/10 bg-white/5 outline-none transition-all placeholder:text-slate-400 backdrop-blur-xl ` +
-    `${inputClassName || 'rounded-2xl px-4 py-3'} focus:border-cyan-300/40 focus:ring-2 focus:ring-cyan-300/20`;
+  const baseClasses = `w-full px-5 py-3.5 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all ${inputClassName || 'rounded'}`;
 
   return (
     <div className={`mb-4 w-full ${className}`}>
-      {label && <label className="mb-1 block text-sm font-medium text-slate-200">{label}</label>}
-
+      {label && <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
+      
       {type === 'textarea' ? (
-        <textarea
-          className={baseClasses}
-          {...props as React.TextareaHTMLAttributes<HTMLTextAreaElement>}
+        <textarea 
+          className={baseClasses} 
+          {...props as React.TextareaHTMLAttributes<HTMLTextAreaElement>} 
         />
       ) : type === 'select' ? (
-        <select
+        <select 
           className={baseClasses}
           {...props as React.SelectHTMLAttributes<HTMLSelectElement>}
         >
           {options?.map((opt, i) => <option key={i} value={opt}>{opt}</option>)}
         </select>
       ) : (
-        <input
-          type={type}
-          className={baseClasses}
-          {...props as React.InputHTMLAttributes<HTMLInputElement>}
+        <input 
+          type={type} 
+          className={baseClasses} 
+          {...props as React.InputHTMLAttributes<HTMLInputElement>} 
         />
       )}
     </div>

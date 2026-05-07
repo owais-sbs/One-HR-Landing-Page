@@ -1,56 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #e2e8f0;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #0f172a;
-  --color-secondary: #22d3ee;
-  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-heading: "SF Pro Display", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --color-primary: #000000;
+  --color-secondary: #0ea5e9;
+  --font-sans: "Inter", var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono);
 }
 
-* {
-  box-sizing: border-box;
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
-}
-
-body {
-  min-height: 100%;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  background-image:
-    radial-gradient(circle at top left, rgba(34, 211, 238, 0.12), transparent 24%),
-    radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 26%),
-    radial-gradient(circle at 50% 10%, rgba(14, 165, 233, 0.07), transparent 20%),
-    linear-gradient(180deg, #020617 0%, #07111f 48%, #020617 100%);
-  background-attachment: fixed;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
-
-::selection {
-  background: rgba(34, 211, 238, 0.28);
-  color: #ffffff;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
 }
