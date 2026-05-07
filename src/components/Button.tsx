@@ -9,18 +9,20 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ variant = 'primary', size = 'md', href, children, className = '', ...props }: ButtonProps) {
-  const baseStyles = "inline-flex items-center justify-center font-semibold rounded-full transition-all duration-300 ease-in-out uppercase tracking-wider text-sm";
-  
+  const baseStyles =
+    'group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-out text-sm transform-gpu focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617]';
+
   const variants = {
-    primary: "bg-primary text-white hover:bg-opacity-90 hover:shadow-lg",
-    secondary: "bg-secondary text-white hover:bg-opacity-90 hover:shadow-lg",
-    outline: "border-2 border-primary text-primary hover:bg-primary hover:text-white"
+    primary: 'bg-white text-slate-950 shadow-[0_18px_45px_rgba(255,255,255,0.12)] hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(255,255,255,0.18)]',
+    secondary: 'bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 text-slate-950 shadow-[0_18px_50px_rgba(34,211,238,0.24)] hover:-translate-y-0.5 hover:shadow-[0_24px_60px_rgba(34,211,238,0.28)]',
+    outline:
+      'border border-white/10 bg-white/5 text-white shadow-[0_12px_30px_rgba(2,6,23,0.18)] backdrop-blur-xl hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10',
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-xs",
-    md: "px-6 py-3",
-    lg: "px-8 py-4 text-base"
+    sm: 'px-4 py-2.5 text-xs',
+    md: 'px-5 py-3',
+    lg: 'px-6 py-3.5 text-base',
   };
 
   const combinedClasses = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`;
@@ -34,10 +36,7 @@ export function Button({ variant = 'primary', size = 'md', href, children, class
   }
 
   return (
-    <button 
-      className={combinedClasses}
-      {...props}
-    >
+    <button className={combinedClasses} {...props}>
       {children}
     </button>
   );

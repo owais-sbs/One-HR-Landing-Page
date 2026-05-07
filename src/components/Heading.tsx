@@ -10,11 +10,11 @@ interface HeadingProps {
 export function Heading({ title, subtitle, centered = true, className = '' }: HeadingProps) {
   return (
     <div className={`mb-12 ${centered ? 'text-center' : 'text-left'} ${className}`}>
-      <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-tight">
+      <h2 className="mb-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-gray-600 max-w-2xl text-lg opacity-90 mx-auto">
+        <p className="mx-auto max-w-2xl text-lg text-slate-300 opacity-90">
           {subtitle}
         </p>
       )}

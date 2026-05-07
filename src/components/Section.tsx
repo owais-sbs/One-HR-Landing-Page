@@ -11,7 +11,7 @@ interface SectionProps {
 
 export function Section({ id, children, className = '', containerClassName = '', bgWhite = true }: SectionProps) {
   return (
-    <section id={id} className={`py-16 md:py-24 ${bgWhite ? 'bg-white' : ''} ${className}`}>
+    <section id={id} className={`py-16 md:py-24 ${bgWhite ? 'bg-slate-950' : ''} ${className}`}>
       <Container className={containerClassName}>
         {children}
       </Container>

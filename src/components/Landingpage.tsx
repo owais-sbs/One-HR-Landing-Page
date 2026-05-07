@@ -1,325 +1,99 @@
 'use client';
+
+import type { ReactNode } from 'react';
 import Image from 'next/image';
+import { motion, useReducedMotion } from 'framer-motion';
 import contactImg from '../../contact.jpg';
-import { Container } from './Container';
-import { Section } from './Section';
-import { Heading } from './Heading';
-import { Card } from './Card';
-import { Button } from './Button';
-import { Input } from './Input';
 import {
-  CheckCircle2, Users, Clock, CalendarDays, Banknote, BarChart3, UserCog,
-  Heart, Activity, DollarSign, Handshake, Award, Lightbulb,
-  ShieldCheck, Target, TrendingUp, Mail, Phone, MapPin, ArrowRight,
-} from 'lucide-react';
+  ArrowRight,
+  Award,
+  BrainCircuit,
+  CalendarDays,
+  CheckCircle2,
+  Clock3,
+  DollarSign,
+  Heart,
+  Layers3,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  Users,
+} from './Icons';
+import { Button } from './Button';
+import { Container } from './Container';
+import { Input } from './Input';
+import { MotionReveal } from './MotionReveal';
 
-// ─────────────────────────────────────────────
-// Hero
-// ─────────────────────────────────────────────
-export function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#f2f8fc] to-white pt-16 pb-24 md:pt-28 md:pb-36">
-      <div className="absolute top-10 right-[30%] w-5 h-5 bg-[#2582ff] rounded-full z-0" />
-
-      <div className="absolute top-12 left-[50%] -translate-x-[20%] opacity-80 z-0 hidden md:block">
-        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="dotGrid" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
-              <circle cx="3" cy="3" r="2.5" fill="#2582ff" />
-            </pattern>
-          </defs>
-          <rect width="120" height="120" fill="url(#dotGrid)" />
-        </svg>
-      </div>
-
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center relative z-10">
-          <div className="max-w-xl mx-auto lg:mx-0">
-            <div className="flex gap-2 mb-8 items-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2582ff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#111827] mb-6 leading-[1.1] tracking-tight">
-              Elevate your workforce with expert HR solutions.
-            </h1>
-            <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-[90%]">
-              From talent acquisition and seamless onboarding to robust performance management. One HR provides the strategic support you need to scale your business effortlessly.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center font-bold text-white rounded-full transition-all duration-300 ease-in-out px-8 py-3.5 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] hover:shadow-lg hover:scale-105 shadow-blue-500/30"
-            >
-              Get In Touch <span className="ml-2">→</span>
-            </a>
-          </div>
-
-          <div className="relative w-full flex justify-center lg:justify-end mt-12 lg:mt-0 perspective-[1200px]">
-            {/* Glow blob */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[75%] h-[75%] bg-gradient-to-br from-blue-300/30 to-sky-400/20 rounded-full blur-3xl" />
-            </div>
-
-            {/* Dashboard image */}
-            <div className="relative w-full rounded-2xl overflow-hidden z-10 shadow-[0_40px_100px_-15px_rgba(37,130,255,0.3)] border border-blue-100/60">
-              <Image
-                src="/home.jpg"
-                alt="One HR Dashboard"
-                width={900}
-                height={600}
-                className="w-full h-auto block"
-                sizes="(max-width: 768px) 100vw, 900px"
-                priority
-              />
-            </div>
-
-            {/* Floating stat badge */}
-            <div className="absolute -bottom-4 left-0 md:left-2 bg-white rounded-2xl shadow-xl px-5 py-3.5 flex items-center gap-3 z-20 border border-gray-100">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#0ea5e9] flex items-center justify-center shadow">
-                <Users size={18} className="text-white" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-400 font-medium">Active Employees</p>
-                <p className="text-lg font-extrabold text-[#111827] leading-tight">1,240+</p>
-              </div>
-            </div>
-
-            {/* Floating live badge */}
-            <div className="absolute -top-3 right-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2.5 z-20 border border-gray-100">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <p className="text-xs font-bold text-gray-700">Live Dashboard</p>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────
-// About Section
-// ─────────────────────────────────────────────
-export function AboutSection() {
-  return (
-    <section className="relative py-24 bg-white overflow-hidden" id="about">
-      <div className="absolute top-10 right-10 opacity-30 w-64 h-64 border-4 border-dashed border-gray-200 rounded-full mix-blend-multiply pointer-events-none -mr-32 -mt-32" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-          {/* Image Grid */}
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-[550px] mx-auto lg:mx-0">
-              <div className="flex flex-col gap-4 sm:gap-6">
-                <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-lg">
-                  <Image src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Analytics dashboard" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-                </div>
-                <div className="relative w-[70%] aspect-square rounded-2xl overflow-hidden shadow-md -mr-10">
-                  <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Data charts" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-                </div>
-              </div>
-              <div className="flex flex-col gap-4 sm:gap-6 transform translate-y-12 sm:translate-y-20">
-                <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-xl bg-black text-white flex flex-col items-center justify-center text-center p-6 hover:scale-105 transition-transform duration-500">
-                  <div className="text-5xl md:text-6xl font-extrabold mb-2 tracking-tight text-[#0ea5e9]">25<span className="text-3xl align-top">+</span></div>
-                  <div className="text-sm md:text-base font-semibold leading-tight text-white">Years<br />Experience<br />Working</div>
-                </div>
-                <div className="relative w-full aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden shadow-lg">
-                  <Image src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80" alt="HR software interface" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Text Content */}
-          <div className="pt-10 lg:pt-0">
-            <span className="inline-block px-5 py-2 rounded-full border border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider mb-6 shadow-sm">HOW WE HELP</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-6 leading-[1.15] tracking-tight">
-              Your One-Stop Solution <br className="hidden lg:block" /> For All Your HR Needs
-            </h2>
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed max-w-lg">
-              We streamline your human resources processes with custom-tailored solutions. From recruitment and compliance to ongoing team management, our dedicated experts make scaling effortless.
-            </p>
-            <ul className="space-y-4 mb-10">
-              {[
-                'Comprehensive compliance and risk mitigation.',
-                'Tailored talent acquisition and retention strategies.',
-                'Scalable HR infrastructure built for growth.',
-                'Dedicated expert support for employee relations.',
-              ].map((item) => (
-                <li key={item} className="flex items-center text-gray-700 font-medium">
-                  <CheckCircle2 className="text-[#0ea5e9] mr-3 bg-blue-50 rounded-full" size={24} />
-                  <span className="text-[#111827]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <Button className="rounded-full bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] shadow-lg shadow-blue-500/30 px-8 py-3.5 hover:scale-105 border-0 font-bold transition-all text-white">
-              Explore Our Solutions <span className="ml-2">→</span>
-            </Button>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-// ─────────────────────────────────────────────
-// Services
-// ─────────────────────────────────────────────
 const servicesList = [
   {
-    title: 'Employee & Operations',
-    icon: <Users size={28} />,
+    title: 'Employee Hub',
+    icon: Users,
     features: [
-      'Centralised digital employee profiles',
-      'Org structure: departments, designations, reporting hierarchies',
-      'Secure role-based document management',
-      'Self-service portal — leave, payslips, profile updates',
+      'Digital employee profiles with smart search',
+      'Org charts, reporting lines and role mapping',
+      'Secure document vault with permissions',
+      'Self-service profile, leave and payroll access',
     ],
   },
   {
     title: 'Attendance & Payroll',
-    icon: <Clock size={28} />,
+    icon: Clock3,
     features: [
-      'Digital check-in/out, leave requests & automated tracking',
-      'Automated salary calculations & payslip generation',
-      'Real-time dashboards for headcount, attendance & payroll',
-      'Granular role-based access for HR, Finance & Managers',
+      'Check-in/out, leave workflows and approvals',
+      'Automated salary calculations and payslips',
+      'Real-time dashboards for HR and finance',
+      'Role-based controls for managers and admins',
     ],
   },
   {
-    title: 'Hardware & WhatsApp',
-    icon: <Banknote size={28} />,
+    title: 'Automation Layer',
+    icon: MessageSquare,
     features: [
-      'Biometric machine integration (fingerprint / face recognition)',
-      'Door access control — auto-grant/revoke on hire or exit',
-      'Payslips, leave notifications & attendance reminders via WhatsApp',
-      'Onboarding documents & holiday broadcasts via WhatsApp',
+      'Biometric machine integration',
+      'Access control linked to onboarding and exits',
+      'WhatsApp reminders, alerts and broadcasts',
+      'Smart notifications for documents and holidays',
     ],
   },
 ];
 
-export function Services() {
-  return (
-    <Section id="services" className="bg-gray-50 bg-opacity-30">
-      <Heading title="Services We Offer" subtitle="Freedom HR provides custom HR solutions for your business in the most flexible and value driven way." />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-        {servicesList.map((service, idx) => (
-          <div
-            key={idx}
-            className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
-          >
-            {/* Top accent bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9]" />
-            <div className="p-8">
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-100 flex items-center justify-center text-[#2582ff] mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-bold text-[#111827] mb-5">{service.title}</h3>
-              <ul className="space-y-3">
-                {service.features.map((feat, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
-                    <CheckCircle2 size={16} className="text-[#0ea5e9] mt-0.5 shrink-0" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Wave Section
-// ─────────────────────────────────────────────
-export function WaveSection() {
-  return (
-    <section className="relative bg-primary pt-24 pb-20 mt-16 overflow-hidden">
-      <div className="absolute top-[-1px] left-0 w-full overflow-hidden leading-[0]">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px]">
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="fill-white" />
-          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" className="fill-white" />
-          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="fill-white" />
-        </svg>
-      </div>
-
-      <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="text-white relative z-10 pt-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">We're Here To Help</h2>
-            <p className="text-white/80 leading-relaxed mb-6 font-light">
-              At One HR we become an invaluable resource within your business, teaming up as your HR expert and freeing you to concentrate on other areas of your business. We offer a scalable and cost-effective solution and become your friend and trusted advisor.
-            </p>
-          </div>
-          <div className="relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/5 rounded-full blur-2xl -z-10" />
-            <div className="relative rounded-t-[100px] rounded-bl-[100px] rounded-br-lg overflow-hidden shadow-xl aspect-square max-w-sm mx-auto">
-              <Image src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80" alt="HR Analytics Dashboard" fill className="object-cover object-center" />
-            </div>
-            <div className="absolute -bottom-4 -left-4 grid grid-cols-4 gap-2 z-20">
-              {[...Array(12)].map((_, i) => (
-                <div key={i} className="w-1.5 h-1.5 bg-secondary rounded-full" />
-              ))}
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Features
-// ─────────────────────────────────────────────
 const values = [
-  { title: 'Performance', description: "We're enablers of genuine performance GROWTH across teams and individuals.", icon: <Activity size={20} /> },
-  { title: 'Human Centric', description: 'Your people are CORE to what we do and we ensure every solution we provide is tailored to the individual.', icon: <Heart size={20} /> },
-  { title: 'Partnerships', description: 'We build REAL relationships with you so you know you can trust us and the advice we give.', icon: <Handshake size={20} /> },
-  { title: 'Affordable', description: "We're on a mission to make specialist HR strategy and support ACCESSIBLE and affordable for all businesses.", icon: <DollarSign size={20} /> },
-  { title: 'Experienced', description: "We've got the intel and the KNOWLEDGE to guide you and your business to success.", icon: <Award size={20} /> },
-  { title: 'Innovation', description: 'We continually adapt our modern HR strategies to keep your business ahead of industry curves.', icon: <Lightbulb size={20} /> },
+  {
+    title: 'Performance',
+    description: 'Build a people system that drives measurable growth across teams and departments.',
+    icon: TrendingUp,
+  },
+  {
+    title: 'Human-centric',
+    description: 'Design HR experiences that feel supportive, clear and easy to trust.',
+    icon: Heart,
+  },
+  {
+    title: 'Partnership',
+    description: 'Work with a team that acts like an extension of your internal operations.',
+    icon: Layers3,
+  },
+  {
+    title: 'Affordability',
+    description: 'Scale specialist HR support without adding unnecessary overhead.',
+    icon: DollarSign,
+  },
+  {
+    title: 'Experience',
+    description: 'Lean on deep HR know-how to stay ahead of compliance and hiring needs.',
+    icon: Award,
+  },
+  {
+    title: 'Innovation',
+    description: 'Modernize workflows with automation, analytics and simpler day-to-day flows.',
+    icon: BrainCircuit,
+  },
 ];
 
-export function Features() {
-  return (
-    <Section id="features" bgWhite>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-start">
-        <div className="lg:col-span-1 md:sticky md:top-24">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary leading-tight">
-            Our values and the pillars that underpin our service
-          </h2>
-          <div className="w-16 h-1 bg-secondary mt-6" />
-        </div>
-        <div className="lg:col-span-2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
-            {values.map((val, idx) => (
-              <div key={idx} className="flex flex-col gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 shadow-lg">
-                  {val.icon}
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{val.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{val.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Pricing Plans
-// ─────────────────────────────────────────────
 const plans = [
   {
     name: 'Starter',
@@ -328,10 +102,10 @@ const plans = [
     employeeLimit: 'Up to 50 employees',
     highlight: false,
     features: [
-      'Core HR Management',
-      'Leave & Attendance Tracking',
-      'Employee Self-Service Portal',
-      'Basic Document Storage',
+      'Core HR management',
+      'Leave and attendance tracking',
+      'Employee self-service portal',
+      'Basic document storage',
     ],
     cta: 'Get Started',
   },
@@ -343,9 +117,9 @@ const plans = [
     highlight: true,
     features: [
       'Everything in Starter',
-      'Payroll (1 country)',
-      'Biometric Integration',
-      'Automated WhatsApp Notifications',
+      'Payroll for one country',
+      'Biometric integration',
+      'WhatsApp notifications',
     ],
     cta: 'Start Free Trial',
   },
@@ -356,231 +130,694 @@ const plans = [
     employeeLimit: '200+ employees',
     highlight: false,
     features: [
-      'Multi-country Payroll',
-      'Door Access Control',
-      'Full WhatsApp Suite',
-      '24/7 Dedicated Support',
+      'Multi-country payroll',
+      'Door access control',
+      'Full WhatsApp suite',
+      'Dedicated support',
     ],
     cta: 'Contact Sales',
   },
 ];
 
-export function Resources() {
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  centered = true,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  centered?: boolean;
+}) {
   return (
-    <Section id="resources" className="bg-[#f8fafc] border-t border-gray-100">
-      <div className="text-center mb-14">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-[#2582ff] text-xs font-bold uppercase tracking-widest mb-4 border border-blue-100">Subscription Plans</span>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4 tracking-tight">Choose Your Plan</h2>
-        <p className="text-gray-500 text-lg max-w-xl mx-auto">Transparent pricing built for SMBs and growing enterprises. Scale up anytime.</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-        {plans.map((plan, idx) => (
-          <div
-            key={idx}
-            className={`relative flex flex-col rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
-              plan.highlight
-                ? 'bg-gradient-to-b from-[#1e3a5f] to-[#0f2340] text-white shadow-2xl shadow-blue-900/30 scale-[1.03]'
-                : 'bg-white border border-gray-100 shadow-md hover:shadow-xl text-[#111827]'
-            }`}
-          >
-            {plan.highlight && (
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9]" />
-            )}
-            {plan.highlight && (
-              <div className="absolute top-5 right-5">
-                <span className="bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow">
-                  Most Popular
-                </span>
-              </div>
-            )}
-
-            <div className="p-8 flex flex-col flex-1">
-              <p className={`text-sm font-bold uppercase tracking-widest mb-3 ${plan.highlight ? 'text-sky-400' : 'text-[#2582ff]'}`}>{plan.name}</p>
-              <div className="flex items-end gap-1 mb-1">
-                <span className={`text-5xl font-extrabold tracking-tight ${plan.highlight ? 'text-white' : 'text-[#111827]'}`}>{plan.price}</span>
-                <span className={`text-base font-medium mb-2 ${plan.highlight ? 'text-sky-300' : 'text-gray-400'}`}>{plan.period}</span>
-              </div>
-              <p className={`text-sm mb-8 ${plan.highlight ? 'text-sky-300/80' : 'text-gray-400'}`}>{plan.employeeLimit}</p>
-
-              <ul className="space-y-3 mb-10 flex-1">
-                {plan.features.map((feat, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? 'bg-sky-500/20' : 'bg-blue-50'}`}>
-                      <CheckCircle2 size={13} className={plan.highlight ? 'text-sky-400' : 'text-[#0ea5e9]'} />
-                    </div>
-                    <span className={plan.highlight ? 'text-sky-100' : 'text-gray-600'}>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href="#contact"
-                className={`w-full text-center py-3.5 rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 ${
-                  plan.highlight
-                    ? 'bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] text-white shadow-lg shadow-blue-500/30'
-                    : 'border-2 border-[#2582ff] text-[#2582ff] hover:bg-[#2582ff] hover:text-white'
-                }`}
-              >
-                {plan.cta}
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Contact
-// ─────────────────────────────────────────────
-export function Contact() {
-  return (
-    <div id="contact" className="relative w-full min-h-[800px] flex items-center py-32 mt-10 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Image src={contactImg} alt="Professional Corporate Office" fill className="object-cover object-center grayscale opacity-80" />
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" />
-      </div>
-
-      <div className="absolute top-[-1px] left-0 w-full overflow-hidden leading-[0] z-10">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[80px] md:h-[130px]">
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#ffffff" />
-        </svg>
-      </div>
-
-      <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-10 rotate-180">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px]">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000" />
-        </svg>
-      </div>
-
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[500px]">
-          <div className="mb-6 pl-1">
-            <h2 className="text-4xl font-bold text-white mb-2 tracking-tight">Contact us</h2>
-            <p className="text-gray-300 font-medium text-lg">Get in touch with us today to see how we can help you</p>
-          </div>
-          <form className="space-y-4">
-            <Input type="text" placeholder="Full name" inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
-            <Input type="email" placeholder="Email" inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
-            <Input type="text" placeholder="Company" inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
-            <Input
-              type="select"
-              inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors [&>option]:text-black"
-              options={['Choose a service...', 'Employee Management', 'Attendance Management', 'Leave Management', 'Payroll Management', 'Reports & Analytics', 'Employee Self-Service']}
-            />
-            <Input type="textarea" placeholder="Message" rows={4} inputClassName="rounded-3xl shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
-            <div className="pt-2">
-              <Button type="button" variant="secondary" size="lg" className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold">
-                SEND YOUR MESSAGE
-              </Button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div className={`${centered ? 'text-center mx-auto' : 'text-left'} max-w-3xl`}>
+      <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/85 shadow-[0_10px_30px_rgba(15,23,42,0.12)] backdrop-blur-xl">
+        <Sparkles className="h-3.5 w-3.5 text-cyan-300" />
+        {eyebrow}
+      </p>
+      <h2 className="font-heading mt-5 text-3xl font-semibold tracking-tight text-white md:text-5xl">
+        {title}
+      </h2>
+      <p className="mt-4 text-base leading-7 text-slate-300 md:text-lg">
+        {description}
+      </p>
     </div>
   );
 }
 
-// ─────────────────────────────────────────────
-// Footer
-// ─────────────────────────────────────────────
+function MetricPill({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_12px_45px_rgba(2,6,23,0.16)] backdrop-blur-xl">
+      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-300">{label}</p>
+      <p className="mt-1 text-xl font-semibold text-white">{value}</p>
+    </div>
+  );
+}
+
+function GlassCard({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`rounded-[28px] border border-white/10 bg-white/5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-2xl ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+function FloatingOrb({
+  className = '',
+  delay = 0,
+}: {
+  className?: string;
+  delay?: number;
+}) {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={className}
+      animate={
+        shouldReduceMotion
+          ? undefined
+          : {
+              y: [0, -10, 0],
+              x: [0, 6, 0],
+              scale: [1, 1.04, 1],
+            }
+      }
+      transition={{
+        duration: 8,
+        repeat: Infinity,
+        ease: 'easeInOut',
+        delay,
+      }}
+    />
+  );
+}
+
+export function Hero() {
+  return (
+    <section
+      id="home"
+      className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.18),_transparent_26%),radial-gradient(circle_at_top_right,_rgba(59,130,246,0.16),_transparent_28%),linear-gradient(180deg,_#020617_0%,_#07111f_52%,_#0f172a_100%)] pt-28 pb-20 md:pt-36 md:pb-28"
+    >
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-25" />
+      <FloatingOrb className="absolute left-[-8rem] top-16 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+      <FloatingOrb className="absolute right-[-6rem] top-28 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" delay={1.5} />
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent"
+        animate={{ opacity: [0.55, 0.9, 0.55] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      <Container className="relative z-10">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
+          <MotionReveal side="left" className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100 backdrop-blur-xl">
+              <Sparkles className="h-3.5 w-3.5" />
+              Modern HR operating system
+            </div>
+            <h1 className="font-heading mt-6 max-w-3xl text-4xl font-semibold tracking-tight text-white md:text-6xl lg:text-7xl">
+              A modern HR experience that feels{' '}
+              <span className="bg-gradient-to-r from-cyan-200 via-white to-sky-300 bg-clip-text text-transparent">
+                fast, glassy
+              </span>{' '}
+              and effortless.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+              One HR combines employee management, attendance, payroll and automation into one polished experience,
+              designed to feel premium on desktop and mobile.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button href="#contact" size="lg" className="bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 text-slate-950 shadow-[0_18px_50px_rgba(34,211,238,0.25)]">
+                Book a demo
+              </Button>
+              <Button href="#services" variant="outline" size="lg" className="text-white">
+                Explore platform
+              </Button>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <MetricPill label="Employee records" value="1,240+" />
+              <MetricPill label="Automations" value="96%" />
+              <MetricPill label="Faster ops" value="3.4x" />
+            </div>
+          </MotionReveal>
+
+          <MotionReveal side="right" className="relative lg:pl-6">
+            <FloatingOrb className="absolute inset-0 -z-10 rounded-full bg-cyan-400/20 blur-3xl" />
+            <motion.div
+              whileHover={{ y: -6, rotateX: 1.5, rotateY: -1.5 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="transform-gpu"
+            >
+              <GlassCard className="relative overflow-hidden p-4 md:p-5">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Live overview</p>
+                  <h3 className="font-heading mt-1 text-lg font-semibold text-white">One HR dashboard</h3>
+                </div>
+                <div className="flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 text-xs font-semibold text-emerald-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(74,222,128,0.9)]" />
+                  Sync active
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
+                <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/50 shadow-[0_20px_70px_rgba(2,6,23,0.18)]">
+                  <Image
+                    src="/home.jpg"
+                    alt="One HR platform preview"
+                    width={900}
+                    height={620}
+                    priority
+                    className="h-full w-full object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 grid gap-3 sm:grid-cols-2">
+                    <motion.div whileHover={{ y: -2 }} className="rounded-2xl border border-white/10 bg-slate-950/60 p-3 backdrop-blur-xl">
+                      <p className="text-[11px] uppercase tracking-[0.22em] text-slate-400">Attendance</p>
+                      <p className="mt-1 text-lg font-semibold text-white">98.6% accurate</p>
+                    </motion.div>
+                    <motion.div whileHover={{ y: -2 }} className="rounded-2xl border border-white/10 bg-slate-950/60 p-3 backdrop-blur-xl">
+                      <p className="text-[11px] uppercase tracking-[0.22em] text-slate-400">Payroll</p>
+                      <p className="mt-1 text-lg font-semibold text-white">Auto generated</p>
+                    </motion.div>
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                    <GlassCard className="p-4">
+                    <p className="text-sm font-medium text-slate-300">Workflow speed</p>
+                    <div className="mt-4 flex items-end justify-between">
+                      <p className="text-4xl font-semibold text-white">84%</p>
+                      <p className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-200">+24% this month</p>
+                    </div>
+                    <div className="mt-4 h-2 rounded-full bg-white/10">
+                      <div className="h-2 w-[84%] rounded-full bg-gradient-to-r from-cyan-300 to-blue-500" />
+                    </div>
+                    </GlassCard>
+                  </motion.div>
+
+                  <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                    <GlassCard className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-2xl bg-cyan-400/15 p-3 text-cyan-200">
+                        <Users className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-heading text-sm font-medium text-white">Employee self-service</p>
+                        <p className="text-sm text-slate-400">Profile, leave, payslips and documents</p>
+                      </div>
+                    </div>
+                    </GlassCard>
+                  </motion.div>
+                </div>
+              </div>
+              </GlassCard>
+            </motion.div>
+          </MotionReveal>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function AboutSection() {
+  return (
+    <section id="about" className="relative overflow-hidden bg-[#08111f] py-20 md:py-32">
+      <FloatingOrb className="absolute right-0 top-0 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl" delay={0.5} />
+      <Container>
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <MotionReveal side="left" className="relative">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-4">
+                <motion.div whileHover={{ y: -4 }} className="transform-gpu overflow-hidden">
+                  <GlassCard className="overflow-hidden p-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80"
+                    alt="Analytics"
+                    width={700}
+                    height={820}
+                    className="h-full w-full object-cover"
+                  />
+                  </GlassCard>
+                </motion.div>
+                <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                  <GlassCard className="p-5">
+                  <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Trusted uptime</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <p className="text-3xl font-semibold text-white">99.9%</p>
+                    <ShieldCheck className="h-6 w-6 text-cyan-300" />
+                  </div>
+                  <p className="mt-2 text-sm text-slate-400">Reliable automation for day-to-day HR operations.</p>
+                  </GlassCard>
+                </motion.div>
+              </div>
+              <div className="space-y-4 pt-8 sm:pt-16">
+                <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                  <GlassCard className="p-5">
+                  <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Faster onboarding</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <p className="text-3xl font-semibold text-white">-42%</p>
+                    <CalendarDays className="h-6 w-6 text-cyan-300" />
+                  </div>
+                  <p className="mt-2 text-sm text-slate-400">Less manual work from hire to first paycheck.</p>
+                  </GlassCard>
+                </motion.div>
+                <motion.div whileHover={{ y: -4 }} className="transform-gpu overflow-hidden">
+                  <GlassCard className="overflow-hidden p-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
+                    alt="Team collaboration"
+                    width={700}
+                    height={620}
+                    className="h-full w-full object-cover"
+                  />
+                  </GlassCard>
+                </motion.div>
+              </div>
+            </div>
+          </MotionReveal>
+
+          <MotionReveal side="right">
+            <SectionHeading
+              eyebrow="How we help"
+              title="A single platform for HR teams that want clarity, speed and control."
+              description="We streamline employee operations with a modern interface, better data visibility and simpler workflows that help teams move faster."
+              centered={false}
+            />
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {[
+                'Comprehensive compliance and risk mitigation.',
+                'Tailored hiring and retention workflows.',
+                'Scalable HR infrastructure built for growth.',
+                'Dedicated support for employee relations.',
+              ].map((item) => (
+                <motion.div key={item} whileHover={{ y: -2 }} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300 backdrop-blur-xl">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-cyan-300" />
+                  <span>{item}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                <GlassCard className="p-4">
+                <p className="text-xs uppercase tracking-[0.22em] text-slate-400">Employees</p>
+                <p className="mt-2 text-2xl font-semibold text-white">1,240+</p>
+                </GlassCard>
+              </motion.div>
+              <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                <GlassCard className="p-4">
+                <p className="text-xs uppercase tracking-[0.22em] text-slate-400">Automations</p>
+                <p className="mt-2 text-2xl font-semibold text-white">48</p>
+                </GlassCard>
+              </motion.div>
+              <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                <GlassCard className="p-4">
+                <p className="text-xs uppercase tracking-[0.22em] text-slate-400">Uptime</p>
+                <p className="mt-2 text-2xl font-semibold text-white">99.9%</p>
+                </GlassCard>
+              </motion.div>
+            </div>
+          </MotionReveal>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function Services() {
+  return (
+    <section id="services" className="relative overflow-hidden bg-[linear-gradient(180deg,#0f172a_0%,#111d33_100%)] py-20 md:py-32">
+      <Container>
+        <MotionReveal side="left">
+          <SectionHeading
+            eyebrow="Platform modules"
+            title="Designed as modular blocks that feel premium, clean and easy to use."
+            description="Each module is built to remove friction from common HR tasks while keeping the experience elegant and mobile friendly."
+          />
+        </MotionReveal>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {servicesList.map((service, index) => {
+            const Icon = service.icon;
+            const side = index % 2 === 0 ? 'left' : 'right';
+
+            return (
+              <MotionReveal key={service.title} side={side} delay={index * 0.08}>
+                <motion.div whileHover={{ y: -6 }} className="transform-gpu">
+                  <GlassCard className="h-full p-6">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 text-cyan-200 shadow-[0_16px_45px_rgba(34,211,238,0.1)]">
+                      <Icon className="h-7 w-7" />
+                    </div>
+                    <h3 className="font-heading mt-5 text-xl font-semibold text-white">{service.title}</h3>
+                    <ul className="mt-5 space-y-3">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3 text-sm leading-6 text-slate-300">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </GlassCard>
+                </motion.div>
+              </MotionReveal>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function WaveSection() {
+  return (
+    <section className="relative overflow-hidden bg-[#07111f] py-20 md:py-32">
+      <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.18),transparent_60%)]" />
+      <Container>
+        <div className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <MotionReveal side="left">
+            <SectionHeading
+              eyebrow="Operational flow"
+              title="A calmer way to manage people, payroll and approvals."
+              description="The interface keeps the important things visible, removes unnecessary noise and makes every action feel predictable."
+              centered={false}
+            />
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <motion.div whileHover={{ y: -3 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                <p className="text-sm font-medium text-white">Smart approvals</p>
+                <p className="mt-2 text-sm text-slate-400">Direct, trackable workflows for managers and HR.</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -3 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                <p className="text-sm font-medium text-white">Instant alerts</p>
+                <p className="mt-2 text-sm text-slate-400">Keep people updated with notifications that matter.</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -3 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                <p className="text-sm font-medium text-white">Single source of truth</p>
+                <p className="mt-2 text-sm text-slate-400">Reduce duplication with one reliable dataset.</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -3 }} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                <p className="text-sm font-medium text-white">Reporting clarity</p>
+                <p className="mt-2 text-sm text-slate-400">Surface the metrics leaders need in seconds.</p>
+              </motion.div>
+            </div>
+          </MotionReveal>
+
+          <MotionReveal side="right" className="relative">
+            <motion.div whileHover={{ y: -5 }} className="transform-gpu">
+              <GlassCard className="overflow-hidden p-0">
+              <div className="grid gap-0 md:grid-cols-2">
+                <div className="p-6 md:p-8">
+                  <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Workflow snapshot</p>
+                  <div className="mt-5 space-y-4">
+                    {[
+                      { label: 'Leave approval', value: '1 pending' },
+                      { label: 'Payroll status', value: 'Ready' },
+                      { label: 'Compliance', value: 'Updated' },
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                        <p className="text-sm font-medium text-white">{item.label}</p>
+                        <p className="mt-1 text-sm text-cyan-200">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative min-h-[280px]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=900&q=80"
+                    alt="Analytics dashboard"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
+                </div>
+              </div>
+              </GlassCard>
+            </motion.div>
+          </MotionReveal>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function Features() {
+  return (
+    <section id="features" className="bg-[#08111f] py-20 md:py-32">
+      <Container>
+        <MotionReveal side="left">
+          <SectionHeading
+            eyebrow="Design pillars"
+            title="Modern features with a clean, premium interface language."
+            description="The core principles are simple: fewer clicks, clearer hierarchy, responsive layout and motion that supports the experience instead of distracting from it."
+          />
+        </MotionReveal>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {values.map((val, index) => {
+            const Icon = val.icon;
+            const side = index % 2 === 0 ? 'left' : 'right';
+
+            return (
+              <MotionReveal key={val.title} side={side} delay={index * 0.06}>
+                <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+                  <GlassCard className="h-full p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-cyan-200">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-heading mt-5 text-lg font-semibold text-white">{val.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">{val.description}</p>
+                  </GlassCard>
+                </motion.div>
+              </MotionReveal>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function Resources() {
+  return (
+    <section id="resources" className="relative overflow-hidden bg-[linear-gradient(180deg,#07111f_0%,#0f172a_100%)] py-20 md:py-32">
+      <Container>
+        <MotionReveal side="left">
+          <SectionHeading
+            eyebrow="Plans"
+            title="Pricing that still feels modern and polished."
+            description="Transparent subscription options for teams that want a better HR foundation without unnecessary complexity."
+          />
+        </MotionReveal>
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          {plans.map((plan, index) => (
+            <MotionReveal key={plan.name} side={index === 1 ? 'left' : 'right'} delay={index * 0.08}>
+              <motion.div whileHover={{ y: -6 }} className="transform-gpu">
+                <div
+                  className={`relative h-full rounded-[30px] border p-6 shadow-[0_20px_70px_rgba(15,23,42,0.2)] backdrop-blur-2xl ${
+                    plan.highlight
+                      ? 'border-cyan-300/30 bg-gradient-to-b from-cyan-400/15 to-blue-500/10'
+                      : 'border-white/10 bg-white/5'
+                  }`}
+                >
+                  {plan.highlight && (
+                    <div className="absolute right-5 top-5 rounded-full bg-cyan-300/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-100">
+                      Most popular
+                    </div>
+                  )}
+                  <p className={`text-sm font-semibold uppercase tracking-[0.26em] ${plan.highlight ? 'text-cyan-200' : 'text-slate-400'}`}>
+                    {plan.name}
+                  </p>
+                  <div className="mt-4 flex items-end gap-2">
+                    <span className="font-heading text-5xl font-semibold tracking-tight text-white">{plan.price}</span>
+                    <span className="pb-1 text-sm text-slate-400">{plan.period}</span>
+                  </div>
+                  <p className="mt-2 text-sm text-slate-400">{plan.employeeLimit}</p>
+                  <ul className="mt-7 space-y-3">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3 text-sm text-slate-300">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    href="#contact"
+                    variant={plan.highlight ? 'primary' : 'outline'}
+                    size="lg"
+                    className={`mt-8 w-full ${
+                      plan.highlight
+                        ? 'bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 text-slate-950'
+                        : 'border-white/15 bg-white/5 text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {plan.cta}
+                  </Button>
+                </div>
+              </motion.div>
+            </MotionReveal>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function Contact() {
+  return (
+    <section id="contact" className="relative overflow-hidden bg-[#020617] py-20 md:py-32">
+      <div className="absolute inset-0">
+        <Image src={contactImg} alt="Corporate office" fill className="object-cover object-center opacity-20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.12),transparent_30%),linear-gradient(180deg,rgba(2,6,23,0.68),rgba(2,6,23,0.96))]" />
+      </div>
+      <FloatingOrb className="absolute left-[-4rem] top-16 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
+
+      <Container className="relative z-10">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          <MotionReveal side="left">
+            <SectionHeading
+              eyebrow="Contact"
+              title="Start with a cleaner, more modern HR setup."
+              description="Tell us what your team needs and we will shape a workflow that feels easier to use from day one."
+              centered={false}
+            />
+
+            <div className="mt-8 space-y-4">
+              <div className="flex items-center gap-3 text-sm text-slate-300">
+                <MapPin className="h-5 w-5 text-cyan-300" />
+                100 Corporate Center Point, Suite 500, New York, NY 10001
+              </div>
+              <div className="flex items-center gap-3 text-sm text-slate-300">
+                <Phone className="h-5 w-5 text-cyan-300" />
+                +1 (800) 123-4567
+              </div>
+              <div className="flex items-center gap-3 text-sm text-slate-300">
+                <Mail className="h-5 w-5 text-cyan-300" />
+                hello@onehrsolutions.com
+              </div>
+            </div>
+          </MotionReveal>
+
+          <MotionReveal side="right">
+            <motion.div whileHover={{ y: -4 }} className="transform-gpu">
+              <GlassCard className="p-5 md:p-7">
+              <form className="grid gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Input type="text" placeholder="Full name" inputClassName="rounded-2xl border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 focus:border-cyan-300/50 focus:ring-cyan-300/30" />
+                  <Input type="email" placeholder="Business email" inputClassName="rounded-2xl border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 focus:border-cyan-300/50 focus:ring-cyan-300/30" />
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Input type="text" placeholder="Company" inputClassName="rounded-2xl border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 focus:border-cyan-300/50 focus:ring-cyan-300/30" />
+                  <Input
+                    type="select"
+                    options={[
+                      'Choose a service...',
+                      'Employee Management',
+                      'Attendance Management',
+                      'Leave Management',
+                      'Payroll Management',
+                      'Reports & Analytics',
+                      'Employee Self-Service',
+                    ]}
+                    inputClassName="rounded-2xl border-white/10 bg-white/5 px-5 py-4 text-white focus:border-cyan-300/50 focus:ring-cyan-300/30 [&>option]:text-black"
+                  />
+                </div>
+                <Input
+                  type="textarea"
+                  rows={5}
+                  placeholder="Tell us about your team and what you want to improve"
+                  inputClassName="rounded-3xl border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 focus:border-cyan-300/50 focus:ring-cyan-300/30"
+                />
+                <Button type="button" size="lg" className="w-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 text-slate-950 shadow-[0_18px_50px_rgba(34,211,238,0.25)]">
+                  Send message
+                </Button>
+              </form>
+              </GlassCard>
+            </motion.div>
+          </MotionReveal>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="bg-black text-gray-300 pt-20 pb-10 relative overflow-hidden z-10">
+    <footer className="border-t border-white/10 bg-[#020617] py-14 text-slate-300">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-
-          {/* Brand */}
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="text-2xl font-extrabold text-white mb-6">One HR<span className="text-[#2582ff]">.</span></h3>
-            <p className="text-sm text-gray-400 mb-6 leading-relaxed pr-4">
-              Empowering businesses through strategic human resource deployment, unwavering compliance, and transformative talent management across the globe.
+            <h3 className="font-heading text-2xl font-semibold text-white">
+              One HR<span className="text-cyan-300">.</span>
+            </h3>
+            <p className="mt-4 max-w-sm text-sm leading-7 text-slate-400">
+              A modern HR platform concept focused on speed, clarity and a polished user experience.
             </p>
-            <div className="flex space-x-4">
-              {[
-                <path key="li" d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />,
-                <path key="tw" d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />,
-                <path key="fb" d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />,
-              ].map((icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {icon}
-                    {i === 0 && <><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></>}
-                  </svg>
-                </a>
-              ))}
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-            </div>
           </div>
 
-          {/* Nav Links */}
           <div>
-            <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">Quick Links</h4>
-            <ul className="space-y-4 text-sm font-medium">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-200">Quick links</h4>
+            <ul className="mt-4 space-y-3 text-sm text-slate-400">
               {[
-                { label: 'Home', href: '' },
+                { label: 'Home', href: '#' },
                 { label: 'Services', href: '#services' },
                 { label: 'About', href: '#about' },
                 { label: 'Resources', href: '#resources' },
                 { label: 'Contact', href: '#contact' },
               ].map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="hover:text-[#0ea5e9] transition-colors flex items-center">
-                    <ArrowRight size={14} className="mr-2 text-[#0ea5e9]" /> {item.label}
+                  <a className="inline-flex items-center gap-2 transition-colors hover:text-white" href={item.href}>
+                    <ArrowRight className="h-4 w-4 text-cyan-300" />
+                    {item.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div>
-            <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">Contact Us</h4>
-            <ul className="space-y-5 text-sm font-medium">
-              <li className="flex items-start">
-                <MapPin size={18} className="text-[#0ea5e9] mr-3 mt-0.5 shrink-0" />
-                <span className="leading-relaxed text-gray-400">100 Corporate Center Point,<br />Suite 500, New York, NY 10001</span>
-              </li>
-              <li className="flex items-center">
-                <Phone size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
-                <span className="text-gray-400">+1 (800) 123-4567</span>
-              </li>
-              <li className="flex items-center">
-                <Mail size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
-                <a href="mailto:hello@onehrsolutions.com" className="hover:text-white text-gray-400 transition-colors">hello@onehrsolutions.com</a>
-              </li>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-200">Contact</h4>
+            <ul className="mt-4 space-y-3 text-sm text-slate-400">
+              <li>100 Corporate Center Point, Suite 500, New York, NY 10001</li>
+              <li>+1 (800) 123-4567</li>
+              <li>hello@onehrsolutions.com</li>
             </ul>
           </div>
 
-          {/* Newsletter */}
           <div>
-            <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">HR Insights</h4>
-            <p className="text-sm text-gray-400 mb-4 pr-2">Subscribe to our newsletter for the latest HR strategy and compliance updates.</p>
-            <div className="relative mt-2">
-              <input type="email" placeholder="Business Email" className="w-full bg-[#1e293b] border-none rounded-full px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9] text-white transition-colors pr-[110px]" />
-              <button type="button" className="absolute right-1 top-1 bottom-1 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] hover:opacity-90 text-white rounded-full px-5 text-sm font-bold transition-opacity duration-300">
-                Subscribe
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-200">Stay updated</h4>
+            <p className="mt-4 text-sm leading-7 text-slate-400">
+              Subscribe for product updates, HR strategy notes and release news.
+            </p>
+            <div className="mt-4 flex gap-3">
+              <input
+                type="email"
+                placeholder="Business email"
+                className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-300/40 focus:ring-2 focus:ring-cyan-300/20"
+              />
+              <button type="button" className="rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 px-4 py-3 text-sm font-semibold text-slate-950">
+                Join
               </button>
             </div>
           </div>
-
         </div>
 
-        <div className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center text-xs font-semibold text-gray-500">
-          <p>© {new Date().getFullYear()} One HR Management. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-              <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
-            ))}
-          </div>
+        <div className="mt-10 border-t border-white/10 pt-6 text-xs text-slate-500">
+          (c) {new Date().getFullYear()} One HR. All rights reserved.
         </div>
-
       </Container>
     </footer>
   );

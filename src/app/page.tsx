@@ -3,7 +3,7 @@ import { Hero, AboutSection, Services, WaveSection, Features, Resources, Contact
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="relative min-h-screen overflow-x-hidden">
       <Navbar />
       <Hero />
       <AboutSection />
