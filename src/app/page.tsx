@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/Navbar';
-import { Hero, AboutSection, Services, WaveSection, Features, Resources, Contact, Footer } from '@/components/Landingpage';
+import { Hero, AboutSection, Services, WaveSection, Features, OracleIntegration, Resources, Contact, Footer } from '@/components/Landingpage';
 
 export default function Home() {
   return (
@@ -10,6 +10,7 @@ export default function Home() {
       <Services />
       <WaveSection />
       <Features />
+      <OracleIntegration />
       <Resources />
       <Contact />
       <Footer />
