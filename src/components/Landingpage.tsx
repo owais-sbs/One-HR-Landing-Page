@@ -190,11 +190,11 @@ export function DarkFeatures() {
 export function AboutSection() {
   return (
     <section className="relative overflow-hidden bg-white" id="about">
-      {/* Light blue left diagonal panel — slants from 50% at top to 62% at bottom */}
+      {/* Light blue left diagonal panel — crisp straight line */}
       <div
-        className="absolute inset-y-0 left-0 w-full bg-[#dbeafe]"
+        className="absolute inset-0 w-full h-full pointer-events-none"
         style={{
-          clipPath: 'polygon(0 0, 50% 0, 62% 100%, 0 100%)',
+          background: 'linear-gradient(105deg, #dbeafe 55%, transparent 55%)',
         }}
       />
 
@@ -217,6 +217,8 @@ export function AboutSection() {
               height={720}
               className="w-full h-auto block"
               priority
+              quality={100}
+              unoptimized
             />
           </div>
         </div>
@@ -443,8 +445,17 @@ export function WaveSection() {
           </div>
           <div className="relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/5 rounded-full blur-2xl -z-10" />
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full max-w-md mx-auto border border-white/10">
-              <Image src="/employee.png" alt="Employee Dashboard" width={560} height={440} className="w-full h-auto block" />
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl w-full max-w-lg mx-auto border border-white/10 bg-black/20 backdrop-blur-sm p-2">
+              <div className="relative rounded-xl overflow-hidden border border-white/10">
+                <video
+                  src="/Untitled design (1).mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto block rounded-xl"
+                />
+              </div>
             </div>
             <div className="absolute -bottom-4 -left-4 grid grid-cols-4 gap-2 z-20">
               {[...Array(12)].map((_, i) => (
@@ -698,21 +709,23 @@ export function Footer() {
               Empowering businesses through strategic human resource deployment, unwavering compliance, and transformative talent management across the globe.
             </p>
             <div className="flex space-x-4">
-              {[
-                <path key="li" d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />,
-                <path key="tw" d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />,
-                <path key="fb" d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />,
-              ].map((icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {icon}
-                    {i === 0 && <><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></>}
-                  </svg>
-                </a>
-              ))}
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
+              <a href="https://in.linkedin.com/company/onepathsolutions" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/OnePathSolutions" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/onepathsolutions/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0ea5e9] hover:text-white transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                 </svg>
               </a>
             </div>
@@ -723,10 +736,9 @@ export function Footer() {
             <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">Quick Links</h4>
             <ul className="space-y-4 text-sm font-medium">
               {[
-                { label: 'Home', href: '' },
-                { label: 'Services', href: '#services' },
                 { label: 'About', href: '#about' },
-                { label: 'Resources', href: '#resources' },
+                { label: 'Features', href: '#services' },
+                { label: 'Pricing', href: '#resources' },
                 { label: 'Contact', href: '#contact' },
               ].map((item) => (
                 <li key={item.label}>
@@ -744,7 +756,7 @@ export function Footer() {
             <ul className="space-y-5 text-sm font-medium">
               <li className="flex items-start">
                 <MapPin size={18} className="text-[#0ea5e9] mr-3 mt-0.5 shrink-0" />
-                <span className="leading-relaxed text-gray-400">100 Corporate Center Point,<br />Suite 500, New York, NY 10001</span>
+                <span className="leading-relaxed text-gray-400">8-1-21/146, Level 1, Mirza Arcade, Building,<br />Shaikpet Rd, Surya Nagar, Toli Chowki,<br />Hyderabad, Telangana 500008</span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
@@ -753,8 +765,8 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
-                <a href="info@onepathsolutions.com" className="hover:text-white text-gray-400 transition-colors">hello@onehrsolutions.com</a>
-              </li>
+                <a href="info@onepathsolutions.com" className="hover:text-white text-gray-400 transition-colors">info@onehrsolutions.com</a>
+              </li> 
             </ul>
           </div>
 
@@ -774,6 +786,9 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center text-xs font-semibold text-gray-500">
           <p>© {new Date().getFullYear()} One HR Management. All rights reserved.</p>
+          <p className="mt-4 md:mt-0">
+            This is own by <a href="https://onepathsolutions.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">OnePathSolutions</a>
+          </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
               <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
