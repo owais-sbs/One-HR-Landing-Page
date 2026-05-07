@@ -1,34 +1,70 @@
-import React from 'react';
-import { Container } from './Container';
-import { Button } from './Button';
-import { Grid } from 'lucide-react';
+'use client';
+import React, { useEffect, useState } from 'react';
 
 export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinkClass = `transition-colors duration-200 ${
+    scrolled ? 'text-gray-600 hover:text-[#111827]' : 'text-gray-300 hover:text-white'
+  }`;
+
   return (
-    <nav className="w-full bg-white bg-opacity-95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100 shadow-sm">
-      <Container className="flex items-center justify-between py-4">
+    <nav
+      className={`w-full sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white shadow-sm border-b border-gray-100'
+          : 'bg-black'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-14 flex items-center justify-between h-[74px]">
+
         {/* Logo */}
         <div className="flex items-center">
-          <span className="text-2xl font-extrabold text-[#111827] tracking-tight">One HR<span className="text-[#2582ff]">.</span></span>
+          <span className="text-[26px] tracking-tight">
+            <span className={`font-normal transition-colors duration-300 ${scrolled ? 'text-[#111827]' : 'text-white'}`}>One </span>
+            <span className={`font-extrabold transition-colors duration-300 ${scrolled ? 'text-[#111827]' : 'text-white'}`}>HR</span>
+            <span className="font-extrabold text-[#2582ff]">.</span>
+          </span>
         </div>
 
-        {/* Links */}
-        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-primary">
-          <a href="#" className="hover:text-secondary transition-colors">Home</a>
-          <a href="#services" className="hover:text-secondary transition-colors">Services</a>
-          <a href="#about" className="hover:text-secondary transition-colors">About</a>
-          <a href="#resources" className="hover:text-secondary transition-colors">Resources</a>
+        {/* Center Nav Links */}
+        <div className={`hidden md:flex items-center space-x-9 text-[16px] font-medium`}>
+          <a href="#about" className={navLinkClass}>About</a>
+          <a href="#services" className={navLinkClass}>Features</a>
+          <a href="#resources" className={navLinkClass}>Pricing</a>
+          <a href="#contact" className={navLinkClass}>Contact</a>
         </div>
 
-        {/* CTA */}
-        <div className="hidden md:block">
-          <a href="#contact">
-            <Button variant="outline" size="sm" className="hidden sm:inline-flex">
-              Get in Touch
-            </Button>
+        {/* Right: Login + GET STARTED */}
+        <div className="hidden md:flex items-center gap-6">
+          <a
+            href="#login"
+            className={`text-[16px] font-medium transition-colors duration-300 ${
+              scrolled ? 'text-[#111827] hover:text-gray-500' : 'text-white hover:text-gray-300'
+            }`}
+          >
+            Login
+          </a>
+          <a
+            href="#contact"
+            className={`text-[13px] font-bold border rounded-full px-6 py-2 transition-all duration-300 tracking-widest uppercase ${
+              scrolled
+                ? 'text-[#111827] border-[#111827] hover:bg-[#111827] hover:text-white'
+                : 'text-white border-white hover:bg-white hover:text-black'
+            }`}
+          >
+            Get Started
           </a>
         </div>
-      </Container>
+      </div>
     </nav>
   );
 }

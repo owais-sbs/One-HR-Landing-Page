@@ -18,83 +18,168 @@ import {
 // ─────────────────────────────────────────────
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#f2f8fc] to-white pt-16 pb-24 md:pt-28 md:pb-36">
-      <div className="absolute top-10 right-[30%] w-5 h-5 bg-[#2582ff] rounded-full z-0" />
+    <section
+      className="relative overflow-hidden bg-black flex flex-col"
+      style={{ minHeight: 'calc(100vh - 60px)' }}
+    >
+      {/* Blue radial glow at bottom */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[420px] rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse at center bottom, rgba(30,80,180,0.55) 0%, rgba(10,20,60,0.35) 45%, transparent 75%)',
+          filter: 'blur(8px)',
+        }}
+      />
 
-      <div className="absolute top-12 left-[50%] -translate-x-[20%] opacity-80 z-0 hidden md:block">
-        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="dotGrid" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
-              <circle cx="3" cy="3" r="2.5" fill="#2582ff" />
-            </pattern>
-          </defs>
-          <rect width="120" height="120" fill="url(#dotGrid)" />
-        </svg>
+      {/* Centered hero content */}
+      <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-20 pb-32">
+
+        {/* Badge pill */}
+        <div className="inline-flex items-center justify-center border border-gray-600 rounded-full px-5 py-1.5 mb-10">
+          <span className="text-[10px] font-semibold tracking-[0.2em] text-gray-300 uppercase">
+            The Future of HR Management
+          </span>
+        </div>
+
+        {/* Main headline */}
+        <h1 className="text-6xl md:text-8xl lg:text-[92px] font-extrabold text-white leading-[1.05] tracking-tight mb-8 max-w-4xl">
+          Transform Talent<br />
+          Into{' '}
+          <span className="text-[#38bdf8]">Success.</span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-lg md:text-xl text-gray-400 max-w-lg leading-relaxed">
+          Institutional-grade HR automation system designed for elite
+          organizational cultures. Manage scale with unparalleled technical
+          superiority.
+        </p>
       </div>
 
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center relative z-10">
-          <div className="max-w-xl mx-auto lg:mx-0">
-            <div className="flex gap-2 mb-8 items-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2582ff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#111827] mb-6 leading-[1.1] tracking-tight">
-              Elevate your workforce with expert HR solutions.
-            </h1>
-            <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-[90%]">
-              From talent acquisition and seamless onboarding to robust performance management. One HR provides the strategic support you need to scale your business effortlessly.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center font-bold text-white rounded-full transition-all duration-300 ease-in-out px-8 py-3.5 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] hover:shadow-lg hover:scale-105 shadow-blue-500/30"
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+        <span className="text-[9px] font-semibold tracking-[0.25em] text-gray-500 uppercase">Scroll</span>
+        <div className="w-px h-8 bg-gray-600" />
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Dark Stats + Features Section
+// ─────────────────────────────────────────────
+export function DarkFeatures() {
+  const stats = [
+    { value: '10K+', label: 'Companies Onboarded' },
+    { value: '99.9%', label: 'Platform Uptime' },
+    { value: '2M+', label: 'Employees Managed' },
+    { value: '150+', label: 'Countries Supported' },
+  ];
+
+  const features = [
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      ),
+      title: 'Workforce Management',
+      desc: 'Centralise employee records, org charts, and document management across your entire organisation in one place.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      ),
+      title: 'Attendance & Leave',
+      desc: 'Automated attendance tracking, leave workflows, and real-time dashboards for HR, Finance, and Managers.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      ),
+      title: 'Payroll Automation',
+      desc: 'End-to-end payroll processing with automated salary calculations, payslip generation, and compliance tracking.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      ),
+      title: 'Real-time Analytics',
+      desc: 'Live dashboards with headcount metrics, payroll spend, attrition trends, and performance KPIs at a glance.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      ),
+      title: 'Role-Based Access',
+      desc: 'Granular permissions for every role — HR, Finance, Manager, and Employee — with audit logs and compliance controls.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      ),
+      title: 'WhatsApp Notifications',
+      desc: 'Automated payslip delivery, leave alerts, and onboarding broadcasts via WhatsApp for seamless communication.',
+    },
+  ];
+
+  return (
+    <section className="relative bg-[#050508] py-28 overflow-hidden">
+      {/* Subtle top divider glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.4), transparent)' }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-14">
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
+          {stats.map((s, i) => (
+            <div
+              key={i}
+              className="flex flex-col items-center text-center py-8 px-4 rounded-2xl border border-white/[0.06] bg-white/[0.03]"
             >
-              Get In Touch <span className="ml-2">→</span>
-            </a>
-          </div>
-
-          <div className="relative w-full flex justify-center lg:justify-end mt-12 lg:mt-0 perspective-[1200px]">
-            {/* Glow blob */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[75%] h-[75%] bg-gradient-to-br from-blue-300/30 to-sky-400/20 rounded-full blur-3xl" />
+              <span className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">{s.value}</span>
+              <span className="text-sm text-gray-500 font-medium">{s.label}</span>
             </div>
-
-            {/* Dashboard image */}
-            <div className="relative w-full rounded-2xl overflow-hidden z-10 shadow-[0_40px_100px_-15px_rgba(37,130,255,0.3)] border border-blue-100/60">
-              <Image
-                src="/home.jpg"
-                alt="One HR Dashboard"
-                width={900}
-                height={600}
-                className="w-full h-auto block"
-                sizes="(max-width: 768px) 100vw, 900px"
-                priority
-              />
-            </div>
-
-            {/* Floating stat badge */}
-            <div className="absolute -bottom-4 left-0 md:left-2 bg-white rounded-2xl shadow-xl px-5 py-3.5 flex items-center gap-3 z-20 border border-gray-100">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#0ea5e9] flex items-center justify-center shadow">
-                <Users size={18} className="text-white" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-400 font-medium">Active Employees</p>
-                <p className="text-lg font-extrabold text-[#111827] leading-tight">1,240+</p>
-              </div>
-            </div>
-
-            {/* Floating live badge */}
-            <div className="absolute -top-3 right-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2.5 z-20 border border-gray-100">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <p className="text-xs font-bold text-gray-700">Live Dashboard</p>
-            </div>
-          </div>
+          ))}
         </div>
-      </Container>
+
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center border border-gray-700 rounded-full px-5 py-1.5 mb-6">
+            <span className="text-[10px] font-semibold tracking-[0.2em] text-gray-400 uppercase">Platform Capabilities</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-4">
+            Everything your HR team<br />
+            <span className="text-[#38bdf8]">needs to scale.</span>
+          </h2>
+          <p className="text-gray-500 text-lg max-w-xl mx-auto mt-4 leading-relaxed">
+            Built for high-growth organisations. One HR unifies every workflow into a single, powerful platform.
+          </p>
+        </div>
+
+        {/* Feature cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map((f, i) => (
+            <div
+              key={i}
+              className="group relative rounded-2xl border border-white/[0.07] bg-white/[0.03] p-8 hover:border-[#38bdf8]/30 hover:bg-white/[0.06] transition-all duration-300 cursor-pointer"
+            >
+              {/* Top-left glow on hover */}
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: 'radial-gradient(circle at 20% 20%, rgba(56,189,248,0.06) 0%, transparent 60%)' }}
+              />
+              <div className="w-11 h-11 rounded-xl bg-[#38bdf8]/10 flex items-center justify-center mb-5">
+                {f.icon}
+              </div>
+              <h3 className="text-[17px] font-bold text-white mb-3">{f.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </section>
   );
 }
@@ -104,64 +189,83 @@ export function Hero() {
 // ─────────────────────────────────────────────
 export function AboutSection() {
   return (
-    <section className="relative py-24 bg-white overflow-hidden" id="about">
-      <div className="absolute top-10 right-10 opacity-30 w-64 h-64 border-4 border-dashed border-gray-200 rounded-full mix-blend-multiply pointer-events-none -mr-32 -mt-32" />
+    <section className="relative overflow-hidden bg-white" id="about">
+      {/* Light blue left diagonal panel — slants from 50% at top to 62% at bottom */}
+      <div
+        className="absolute inset-y-0 left-0 w-full bg-[#dbeafe]"
+        style={{
+          clipPath: 'polygon(0 0, 50% 0, 62% 100%, 0 100%)',
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="relative w-full grid lg:grid-cols-2 min-h-[560px] items-center">
 
-          {/* Image Grid */}
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-[550px] mx-auto lg:mx-0">
-              <div className="flex flex-col gap-4 sm:gap-6">
-                <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-lg">
-                  <Image src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Analytics dashboard" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-                </div>
-                <div className="relative w-[70%] aspect-square rounded-2xl overflow-hidden shadow-md -mr-10">
-                  <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Data charts" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-                </div>
-              </div>
-              <div className="flex flex-col gap-4 sm:gap-6 transform translate-y-12 sm:translate-y-20">
-                <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-xl bg-black text-white flex flex-col items-center justify-center text-center p-6 hover:scale-105 transition-transform duration-500">
-                  <div className="text-5xl md:text-6xl font-extrabold mb-2 tracking-tight text-[#0ea5e9]">25<span className="text-3xl align-top">+</span></div>
-                  <div className="text-sm md:text-base font-semibold leading-tight text-white">Years<br />Experience<br />Working</div>
-                </div>
-                <div className="relative w-full aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden shadow-lg">
-                  <Image src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80" alt="HR software interface" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-                </div>
-              </div>
-            </div>
+        {/* LEFT — Dashboard screenshot, large and clear */}
+        <div className="relative z-10 px-8 lg:px-14 py-14 lg:py-16 flex items-center justify-center">
+          <div
+            className="relative w-full rounded-2xl overflow-hidden"
+            style={{
+              maxWidth: '720px',
+              boxShadow: '0 25px 70px -10px rgba(0,0,0,0.22)',
+              border: '1px solid rgba(186,219,255,0.6)',
+            }}
+          >
+            <Image
+              src="/home.png"
+              alt="Platform Administration Dashboard"
+              width={1100}
+              height={720}
+              className="w-full h-auto block"
+              priority
+            />
           </div>
-
-          {/* Text Content */}
-          <div className="pt-10 lg:pt-0">
-            <span className="inline-block px-5 py-2 rounded-full border border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider mb-6 shadow-sm">HOW WE HELP</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-6 leading-[1.15] tracking-tight">
-              Your One-Stop Solution <br className="hidden lg:block" /> For All Your HR Needs
-            </h2>
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed max-w-lg">
-              We streamline your human resources processes with custom-tailored solutions. From recruitment and compliance to ongoing team management, our dedicated experts make scaling effortless.
-            </p>
-            <ul className="space-y-4 mb-10">
-              {[
-                'Comprehensive compliance and risk mitigation.',
-                'Tailored talent acquisition and retention strategies.',
-                'Scalable HR infrastructure built for growth.',
-                'Dedicated expert support for employee relations.',
-              ].map((item) => (
-                <li key={item} className="flex items-center text-gray-700 font-medium">
-                  <CheckCircle2 className="text-[#0ea5e9] mr-3 bg-blue-50 rounded-full" size={24} />
-                  <span className="text-[#111827]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <Button className="rounded-full bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] shadow-lg shadow-blue-500/30 px-8 py-3.5 hover:scale-105 border-0 font-bold transition-all text-white">
-              Explore Our Solutions <span className="ml-2">→</span>
-            </Button>
-          </div>
-
         </div>
+
+        {/* RIGHT — Text content */}
+        <div className="relative z-10 px-10 lg:px-16 py-14 lg:py-16 bg-white">
+
+          {/* HOW WE HELP badge */}
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-300 text-[10px] font-bold text-gray-500 uppercase tracking-[0.18em] mb-6">
+            HOW WE HELP
+          </span>
+
+          {/* Headline */}
+          <h2 className="text-[2.6rem] md:text-[3rem] font-extrabold text-[#111827] mb-5 leading-[1.15] tracking-tight">
+            Your One-Stop<br />
+            Solution<br />
+            For All Your HR Needs
+          </h2>
+
+          {/* Description */}
+          <p className="text-gray-500 text-sm leading-[1.75] mb-7 max-w-[360px]">
+            We streamline your human resources processes with custom-tailored solutions. From recruitment and compliance to ongoing team management, our dedicated experts make scaling effortless.
+          </p>
+
+          {/* Checklist */}
+          <ul className="space-y-4 mb-9">
+            {[
+              'Comprehensive compliance and risk mitigation.',
+              'Tailored talent acquisition and retention strategies.',
+              'Scalable HR infrastructure built for growth.',
+              'Dedicated expert support for employee relations.',
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-3 text-[#111827] text-sm font-medium">
+                <CheckCircle2 className="text-[#0ea5e9] shrink-0" size={18} />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA — dark pill button */}
+          <a
+            href="#services"
+            className="inline-flex items-center gap-3 bg-[#111827] text-white text-[13px] font-bold uppercase tracking-widest px-7 py-4 rounded-full hover:bg-black transition-colors duration-200"
+          >
+            Explore Our Features
+            <span className="text-base">→</span>
+          </a>
+        </div>
+
       </div>
     </section>
   );
@@ -171,63 +275,136 @@ export function AboutSection() {
 // ─────────────────────────────────────────────
 const servicesList = [
   {
-    title: 'Employee & Operations',
-    icon: <Users size={28} />,
-    features: [
-      'Centralised digital employee profiles',
-      'Org structure: departments, designations, reporting hierarchies',
-      'Secure role-based document management',
-      'Self-service portal — leave, payslips, profile updates',
-    ],
+    title: 'Employee Management',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    ),
+    desc: 'Centralised digital employee profiles, org charts, document management, and self-service portal for seamless workforce administration.',
   },
   {
-    title: 'Attendance & Payroll',
-    icon: <Clock size={28} />,
-    features: [
-      'Digital check-in/out, leave requests & automated tracking',
-      'Automated salary calculations & payslip generation',
-      'Real-time dashboards for headcount, attendance & payroll',
-      'Granular role-based access for HR, Finance & Managers',
-    ],
+    title: 'Attendance Tracking',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+    ),
+    desc: 'Digital check-in/out with automated tracking, leave request workflows, and real-time attendance dashboards for managers.',
   },
   {
-    title: 'Hardware & WhatsApp',
-    icon: <Banknote size={28} />,
-    features: [
-      'Biometric machine integration (fingerprint / face recognition)',
-      'Door access control — auto-grant/revoke on hire or exit',
-      'Payslips, leave notifications & attendance reminders via WhatsApp',
-      'Onboarding documents & holiday broadcasts via WhatsApp',
-    ],
+    title: 'Payroll Management',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+      </svg>
+    ),
+    desc: 'End-to-end payroll processing with automated salary calculations, payslip generation, and full compliance tracking.',
+  },
+  {
+    title: 'Salary Structures',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+    ),
+    desc: 'Configure flexible salary components, allowances, deductions, and tax structures tailored to your organisation\'s policies.',
+  },
+  {
+    title: 'Department Management',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="6" height="6" rx="1"/><rect x="16" y="3" width="6" height="6" rx="1"/>
+        <rect x="9" y="15" width="6" height="6" rx="1"/>
+        <path d="M5 9v3h14V9"/><line x1="12" y1="12" x2="12" y2="15"/>
+      </svg>
+    ),
+    desc: 'Manage departments, designations, and reporting hierarchies with ease — keeping your organisational structure always up to date.',
+  },
+  {
+    title: 'Leave Management',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+    ),
+    desc: 'Streamlined leave request and approval workflows with policy enforcement, leave balance tracking, and automated notifications.',
+  },
+  {
+    title: 'HR Analytics Dashboard',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    ),
+    desc: 'Live dashboards with headcount metrics, payroll spend, attrition rates, and performance KPIs — all in one powerful view.',
+  },
+  {
+    title: 'Employee Onboarding',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/>
+        <line x1="23" y1="11" x2="17" y2="11"/>
+      </svg>
+    ),
+    desc: 'Structured onboarding checklists, document collection, access provisioning, and WhatsApp-based welcome workflows for new hires.',
   },
 ];
 
 export function Services() {
   return (
-    <Section id="services" className="bg-gray-50 bg-opacity-30">
-      <Heading title="Services We Offer" subtitle="Freedom HR provides custom HR solutions for your business in the most flexible and value driven way." />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+    <Section id="services" className="bg-white">
+      <Heading title="Our Platform Capabilities" subtitle="One HR delivers enterprise-grade HR solutions engineered for scale, compliance, and operational excellence." />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
         {servicesList.map((service, idx) => (
           <div
             key={idx}
-            className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            className="relative bg-white rounded-2xl border border-gray-150 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
+            style={{ border: '1px solid #e5e7eb' }}
           >
-            {/* Top accent bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9]" />
-            <div className="p-8">
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-100 flex items-center justify-center text-[#2582ff] mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
+            {/* Top-right corner bracket */}
+            <div
+              className="absolute top-3 right-3 w-9 h-9 pointer-events-none"
+              style={{
+                borderTop: '2.5px solid #1e293b',
+                borderRight: '2.5px solid #1e293b',
+                borderTopRightRadius: '10px',
+              }}
+            />
+            {/* Bottom-left corner bracket */}
+            <div
+              className="absolute bottom-3 left-3 w-9 h-9 pointer-events-none"
+              style={{
+                borderBottom: '2.5px solid #1e293b',
+                borderLeft: '2.5px solid #1e293b',
+                borderBottomLeftRadius: '10px',
+              }}
+            />
+
+            <div className="p-7 flex flex-col flex-1">
+              {/* Dark navy icon box */}
+              <div className="w-12 h-12 rounded-xl bg-[#1e293b] flex items-center justify-center mb-5 shrink-0">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-bold text-[#111827] mb-5">{service.title}</h3>
-              <ul className="space-y-3">
-                {service.features.map((feat, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
-                    <CheckCircle2 size={16} className="text-[#0ea5e9] mt-0.5 shrink-0" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
+
+              {/* Title */}
+              <h3 className="text-[17px] font-bold text-gray-900 mb-3">{service.title}</h3>
+
+              {/* Description — clamped to 3 lines */}
+              <p className="text-sm text-gray-500 leading-relaxed flex-1" style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}>
+                {service.desc}
+              </p>
+
+              {/* No Read More button */}
             </div>
           </div>
         ))}
@@ -241,7 +418,7 @@ export function Services() {
 // ─────────────────────────────────────────────
 export function WaveSection() {
   return (
-    <section className="relative bg-primary pt-24 pb-20 mt-16 overflow-hidden">
+    <section className="relative bg-primary pt-24 pb-20 overflow-hidden">
       <div className="absolute top-[-1px] left-0 w-full overflow-hidden leading-[0]">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px]">
           <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="fill-white" />
@@ -253,15 +430,21 @@ export function WaveSection() {
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-white relative z-10 pt-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">We're Here To Help</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Empower Every Employee</h2>
             <p className="text-white/80 leading-relaxed mb-6 font-light">
-              At One HR we become an invaluable resource within your business, teaming up as your HR expert and freeing you to concentrate on other areas of your business. We offer a scalable and cost-effective solution and become your friend and trusted advisor.
+              Give your workforce a powerful self-service dashboard — view payslips, apply for leave, track attendance, update personal details, and stay connected with your team, all in one place.
             </p>
+            <ul className="space-y-3 text-white/70 text-sm font-light">
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />Real-time attendance & leave visibility</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />Instant payslip access & salary breakdown</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />Profile updates & document uploads</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />Seamless WhatsApp & in-app notifications</li>
+            </ul>
           </div>
           <div className="relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/5 rounded-full blur-2xl -z-10" />
-            <div className="relative rounded-t-[100px] rounded-bl-[100px] rounded-br-lg overflow-hidden shadow-xl aspect-square max-w-sm mx-auto">
-              <Image src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80" alt="HR Analytics Dashboard" fill className="object-cover object-center" />
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full max-w-md mx-auto border border-white/10">
+              <Image src="/employee.png" alt="Employee Dashboard" width={560} height={440} className="w-full h-auto block" />
             </div>
             <div className="absolute -bottom-4 -left-4 grid grid-cols-4 gap-2 z-20">
               {[...Array(12)].map((_, i) => (
@@ -322,16 +505,21 @@ export function Features() {
 // ─────────────────────────────────────────────
 const plans = [
   {
-    name: 'Starter',
+    name: 'Basic',
     price: '$49',
     period: '/month',
-    employeeLimit: 'Up to 50 employees',
+    employeeLimit: 'Up to 50 users',
     highlight: false,
     features: [
-      'Core HR Management',
-      'Leave & Attendance Tracking',
-      'Employee Self-Service Portal',
-      'Basic Document Storage',
+      'Employee directory & profiles',
+      'Department management',
+      'Company profile',
+      'Attendance clock-in/out & history',
+      'Leave requests & balances',
+      'Holiday calendar',
+      'Employee self-service dashboard',
+      'Basic user management',
+      'Email support',
     ],
     cta: 'Get Started',
   },
@@ -339,13 +527,18 @@ const plans = [
     name: 'Professional',
     price: '$149',
     period: '/month',
-    employeeLimit: 'Up to 200 employees',
+    employeeLimit: 'Up to 200 users',
     highlight: true,
     features: [
-      'Everything in Starter',
-      'Payroll (1 country)',
-      'Biometric Integration',
-      'Automated WhatsApp Notifications',
+      'Everything in Basic',
+      'Employee onboarding pipeline',
+      'Document management & expiry alerts',
+      'Attendance approvals & corrections',
+      'Leave approval workflows (HR & Manager)',
+      'Working hours configuration',
+      'Headcount, turnover & diversity reports',
+      'Payroll configuration & history',
+      'Priority support (email + chat)',
     ],
     cta: 'Start Free Trial',
   },
@@ -353,17 +546,23 @@ const plans = [
     name: 'Enterprise',
     price: 'Custom',
     period: ' quote',
-    employeeLimit: '200+ employees',
+    employeeLimit: 'Unlimited users',
     highlight: false,
     features: [
-      'Multi-country Payroll',
-      'Door Access Control',
-      'Full WhatsApp Suite',
-      '24/7 Dedicated Support',
+      'Everything in Professional',
+      'Full payroll processing & runs',
+      'Salary structures with components',
+      'Tax slabs, PF contributions & salary cycles',
+      'Compensation, leave & payroll reports',
+      'Custom workflows & API access',
+      'Multi-country master data configuration',
+      'Email & in-app notifications',
+      'Dedicated success manager',
     ],
     cta: 'Contact Sales',
   },
 ];
+
 
 export function Resources() {
   return (
@@ -437,7 +636,7 @@ export function Resources() {
 // ─────────────────────────────────────────────
 export function Contact() {
   return (
-    <div id="contact" className="relative w-full min-h-[800px] flex items-center py-32 mt-10 overflow-hidden">
+    <div id="contact" className="relative w-full min-h-[800px] flex items-center py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image src={contactImg} alt="Professional Corporate Office" fill className="object-cover object-center grayscale opacity-80" />
         <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" />
@@ -549,11 +748,12 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
-                <span className="text-gray-400">+1 (800) 123-4567</span>
+                <span className="text-gray-400">+91 - 86868 36147
+</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
-                <a href="mailto:hello@onehrsolutions.com" className="hover:text-white text-gray-400 transition-colors">hello@onehrsolutions.com</a>
+                <a href="info@onepathsolutions.com" className="hover:text-white text-gray-400 transition-colors">hello@onehrsolutions.com</a>
               </li>
             </ul>
           </div>
