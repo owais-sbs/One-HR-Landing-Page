@@ -208,7 +208,7 @@ export function AboutSection() {
             }}
           >
             <Image
-              src="/home.png"
+              src="/homedashboard.png"
               alt="Platform Administration Dashboard"
               width={1100}
               height={720}
@@ -650,11 +650,17 @@ export function OracleIntegration() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          {/* Oracle + One HR lockup */}
-          <div className="inline-flex items-center gap-4 mb-8 px-6 py-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-6 mb-8">
+          {/* Enterprise Integration pill — above lockup */}
+          <div className="inline-flex items-center justify-center border border-white/10 rounded-full px-5 py-1.5 bg-white/5">
+            <span className="text-[10px] font-semibold tracking-[0.2em] text-sky-400 uppercase">Enterprise Integration</span>
+          </div>
+
+          {/* One HR + Oracle Fusion lockup */}
+          <div className="inline-flex items-center gap-4 px-6 py-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
             {/* One HR logo mark */}
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white text-xs font-black">OH</div>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white text-xs font-black">1HR</div>
               <span className="text-white font-bold text-sm">One HR</span>
             </div>
             <div className="flex items-center gap-1.5 text-gray-400">
@@ -673,9 +679,6 @@ export function OracleIntegration() {
               <span className="text-white font-bold text-sm">Oracle Fusion</span>
             </div>
           </div>
-
-          <div className="inline-flex items-center justify-center border border-white/10 rounded-full px-5 py-1.5 mb-5 bg-white/5">
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-sky-400 uppercase">Enterprise Integration</span>
           </div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-5">
