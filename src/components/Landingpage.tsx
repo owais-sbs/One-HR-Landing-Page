@@ -208,7 +208,7 @@ export function AboutSection() {
             }}
           >
             <Image
-              src="/homedashboard.png"
+              src="/image.png"
               alt="Platform Administration Dashboard"
               width={1100}
               height={720}
