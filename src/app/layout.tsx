@@ -15,9 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "One HR",
   description: "Enterprise-grade HR management platform",
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({
