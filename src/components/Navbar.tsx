@@ -80,8 +80,18 @@ export function Navbar() {
             className={`text-[13px] font-bold border rounded-full px-6 py-2 transition-all duration-300 tracking-widest uppercase ${
               scrolled
                 ? 'text-[#111827] border-[#111827] hover:bg-[#111827] hover:text-white'
-                : 'text-white border-white hover:bg-white hover:text-black'
+                : 'text-white border-transparent hover:brightness-110 shadow-[0_10px_30px_-12px_rgba(93,118,255,0.9)]'
             }`}
+            style={
+              scrolled
+                ? undefined
+                : {
+                    backgroundImage:
+                      'linear-gradient(180deg, #6f8eff 0%, #5b63ea 54%, #2f2a8a 100%)',
+                    boxShadow:
+                      'inset 0 1px 0 rgba(255,255,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.1), 0 10px 34px -12px rgba(93,118,255,0.85)',
+                  }
+            }
           >
             Get Started
           </button>
@@ -113,7 +123,21 @@ export function Navbar() {
           ))}
           <button
             onClick={() => { smoothScrollTo('contact'); setMenuOpen(false); }}
-            className="mt-2 text-[13px] font-bold border rounded-full px-6 py-2 w-fit tracking-widest uppercase text-white border-white hover:bg-white hover:text-black transition-all"
+            className={`mt-2 text-[13px] font-bold border rounded-full px-6 py-2 w-fit tracking-widest uppercase text-white transition-all duration-300 ${
+              scrolled
+                ? 'border-[#111827] text-[#111827] hover:bg-[#111827] hover:text-white'
+                : 'border-transparent hover:brightness-110'
+            }`}
+            style={
+              scrolled
+                ? undefined
+                : {
+                    backgroundImage:
+                      'linear-gradient(180deg, #6f8eff 0%, #5b63ea 54%, #2f2a8a 100%)',
+                    boxShadow:
+                      'inset 0 1px 0 rgba(255,255,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.1), 0 10px 34px -12px rgba(93,118,255,0.85)',
+                  }
+            }
           >
             Get Started
           </button>

@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import contactImg from '../../contact.jpg';
 import { Container } from './Container';
@@ -11,6 +12,7 @@ import {
   CheckCircle2, Users, Clock, CalendarDays, Banknote, BarChart3, UserCog,
   Heart, Activity, DollarSign, Handshake, Award, Lightbulb,
   ShieldCheck, Target, TrendingUp, Mail, Phone, MapPin, ArrowRight,
+  ChevronDown, Check, X, Loader2,
 } from 'lucide-react';
 
 // ─────────────────────────────────────────────
@@ -19,49 +21,190 @@ import {
 export function Hero() {
   return (
     <section
-      className="relative overflow-hidden bg-black flex flex-col"
+      className="relative overflow-hidden bg-black flex flex-col isolate"
       style={{ minHeight: 'calc(100vh - 60px)' }}
     >
-      {/* Blue radial glow at bottom */}
+      {/* Background image */}
+      <Image
+        src="/background.png"
+        alt=""
+        fill
+        priority
+        quality={100}
+        sizes="100vw"
+        className="object-cover object-center pointer-events-none select-none -z-10"
+      />
+
+      {/* Vignette + dark gradient overlay for text contrast */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[420px] rounded-full pointer-events-none"
+        className="absolute inset-0 pointer-events-none -z-10"
         style={{
           background:
-            'radial-gradient(ellipse at center bottom, rgba(30,80,180,0.55) 0%, rgba(10,20,60,0.35) 45%, transparent 75%)',
-          filter: 'blur(8px)',
+            'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.55) 100%)',
         }}
       />
 
+      {/* Soft radial vignette around the edges */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
+        }}
+      />
+
+      {/* Subtle grid texture */}
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none -z-10"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage:
+            'radial-gradient(ellipse at center, black 20%, transparent 75%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse at center, black 20%, transparent 75%)',
+        }}
+      />
+
+      {/* Accent glow blobs */}
+      <div
+        className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl pointer-events-none -z-10"
+        style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%)' }}
+      />
+      <div
+        className="absolute -top-10 right-[-10%] w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none -z-10"
+        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)' }}
+      />
+
       {/* Centered hero content */}
-      <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-20 pb-32">
+      <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 py-24">
 
         {/* Badge pill */}
-        <div className="inline-flex items-center justify-center border border-gray-600 rounded-full px-5 py-1.5 mb-10">
-          <span className="text-[10px] font-semibold tracking-[0.2em] text-gray-300 uppercase">
+        <div className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-1.5 mb-8 border border-white/10 bg-white/[0.03] backdrop-blur-md">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75 animate-ping" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sky-400" />
+          </span>
+          <span className="text-[10px] font-medium tracking-[0.22em] text-gray-300 uppercase">
             The Future of HR Management
           </span>
         </div>
 
         {/* Main headline */}
-        <h1 className="text-6xl md:text-8xl lg:text-[92px] font-extrabold text-white leading-[1.05] tracking-tight mb-8 max-w-4xl">
-          Transform Talent<br />
+        <h1
+          className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[68px] font-semibold leading-[1.08] tracking-[-0.02em] mb-6 max-w-3xl text-transparent bg-clip-text"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, #ffffff 0%, #e2e8ff 40%, #a5b4fc 80%, #6366f1 100%)',
+          }}
+        >
+          Transform Talent
+          <br />
           Into{' '}
-          <span className="text-[#38bdf8]">Success.</span>
+          <span className="relative inline-block">
+            <span
+              className="italic font-medium text-transparent bg-clip-text"
+              style={{
+                backgroundImage:
+                  'linear-gradient(95deg, #b4d8ff 0%, #73b7ff 26%, #7b8dff 58%, #7267ff 100%)',
+                filter: 'drop-shadow(0 0 24px rgba(99,102,241,0.55))',
+              }}
+            >
+              Suc
+              <span
+                className="text-transparent bg-clip-text"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(180deg, #ffffff 0%, #e2e8ff 40%, #a5b4fc 80%)',
+                }}
+              >
+                cess.
+              </span>
+            </span>
+            {/* underline glow */}
+            <span
+              className="absolute left-1 right-3 -bottom-1 h-[2px] rounded-full opacity-80"
+              style={{
+                background:
+                  'linear-gradient(90deg, transparent 0%, #73b7ff 28%, #7b8dff 70%, transparent 100%)',
+                filter: 'blur(1px)',
+              }}
+            />
+          </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-400 max-w-lg leading-relaxed">
+        <p
+          className="text-[15px] md:text-base max-w-md leading-[1.75] font-light text-transparent bg-clip-text"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, #d8ebff 0%, #afc6e8 55%, #88a1ca 100%)',
+          }}
+        >
           Institutional-grade HR automation system designed for elite
           organizational cultures. Manage scale with unparalleled technical
           superiority.
         </p>
+
+        {/* CTA */}
+        <div className="mt-12">
+          <a
+            href="#contact"
+            className="group relative inline-flex items-center gap-3 rounded-full pl-7 pr-2 py-2 text-[14px] font-medium text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
+            style={{
+              backgroundImage:
+                'linear-gradient(180deg, #6f8eff 0%, #5b63ea 52%, #2f2a8a 100%)',
+              boxShadow:
+                'inset 0 1px 0 rgba(255,255,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.1), 0 14px 36px -10px rgba(79,97,255,0.78), 0 0 70px -8px rgba(99,102,241,0.55)',
+            }}
+          >
+            {/* Top sheen */}
+            <span
+              className="absolute inset-x-2 top-px h-1/2 rounded-full pointer-events-none opacity-60"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)',
+              }}
+            />
+            <span className="relative tracking-[0.01em]">JOIN US NOW</span>
+            <span
+              className="relative flex items-center justify-center w-8 h-8 rounded-full transition-transform duration-300 group-hover:translate-x-0.5"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%)',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
+              }}
+            >
+              <ArrowRight size={14} strokeWidth={2.4} />
+            </span>
+            {/* Outer glow halo */}
+            <span
+              className="absolute -inset-4 rounded-full pointer-events-none -z-10 opacity-80"
+              style={{
+                background:
+                  'radial-gradient(ellipse at center, rgba(93,118,255,0.62) 0%, transparent 70%)',
+                filter: 'blur(18px)',
+              }}
+            />
+          </a>
+        </div>
       </div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
-        <span className="text-[9px] font-semibold tracking-[0.25em] text-gray-500 uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gray-600" />
+        <span className="text-[9px] font-semibold tracking-[0.25em] text-gray-400 uppercase">Scroll</span>
+        <div className="relative w-px h-10 bg-white/15 overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-sky-400 to-transparent animate-[scrollLine_2.2s_ease-in-out_infinite]" />
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes scrollLine {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(200%); }
+        }
+      `}</style>
     </section>
   );
 }
@@ -191,31 +334,50 @@ export function AboutSection() {
   return (
     <section className="relative overflow-hidden" id="about"
       style={{
-        background: 'linear-gradient(110deg, #dbeafe 0%, #eff6ff 40%, #ffffff 65%, #ffffff 100%)',
+        background: 'linear-gradient(112deg, #e3e2e9 0%, #e3e2e9 46%, #eef6ff 72%, #ffffff 100%)',
         scrollMarginTop: '74px',
       }}
     >
+      {/* Left neutral blend to hide mockup edge line */}
+      <div
+        className="absolute inset-y-0 left-0 w-[52%] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle at 30% 50%, rgba(227,226,233,0.92) 0%, rgba(227,226,233,0.84) 42%, rgba(227,226,233,0.38) 72%, transparent 88%)',
+        }}
+      />
+      {/* Move blue highlight towards right text section */}
+      <div
+        className="absolute inset-y-0 right-0 w-[46%] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle at 72% 46%, rgba(56,189,248,0.18) 0%, rgba(59,130,246,0.1) 36%, transparent 72%)',
+        }}
+      />
       <div className="relative w-full grid lg:grid-cols-2 min-h-[560px] items-center">
 
-        {/* LEFT — Dashboard screenshot, large and clear */}
+        {/* LEFT — Product video mockup with soft blend edges */}
         <div className="relative z-10 px-8 lg:px-14 py-14 lg:py-16 flex items-center justify-center">
           <div
-            className="relative w-full rounded-2xl overflow-hidden"
+            className="relative w-full overflow-hidden"
             style={{
               maxWidth: '720px',
-              boxShadow: '0 25px 70px -10px rgba(0,0,0,0.22)',
-              border: '1px solid rgba(186,219,255,0.6)',
+              borderRadius: '30px',
+              boxShadow: '0 28px 70px -18px rgba(15, 23, 42, 0.35)',
+              WebkitMaskImage:
+                'radial-gradient(ellipse at center, black 72%, rgba(0,0,0,0.82) 86%, transparent 100%)',
+              maskImage:
+                'radial-gradient(ellipse at center, black 72%, rgba(0,0,0,0.82) 86%, transparent 100%)',
             }}
           >
-            <Image
-              src="/homedashboard.png"
-              alt="Platform Administration Dashboard"
-              width={1100}
-              height={720}
-              className="w-full h-auto block"
-              priority
-              quality={100}
-              unoptimized
+            <video
+              src="/Untitled design (2).mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="w-full h-auto block object-cover"
             />
           </div>
         </div>
@@ -835,7 +997,232 @@ export function Resources() {
 // ─────────────────────────────────────────────
 // Contact
 // ─────────────────────────────────────────────
+const SERVICE_OPTIONS = [
+  'Employee Management',
+  'Attendance Management',
+  'Leave Management',
+  'Payroll Management',
+  'Reports & Analytics',
+  'Employee Self-Service',
+  'Onboarding & Offboarding',
+  'Performance Management',
+  'Recruitment & Hiring',
+  'HR Compliance & Audit',
+  'Document Management',
+  'Training & Development',
+  'Benefits Administration',
+  'Oracle Fusion Integration',
+  'Custom HR Workflows',
+];
+
+function ServicesMultiSelect({
+  value,
+  onChange,
+}: {
+  value: string[];
+  onChange: (v: string[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, []);
+
+  const toggle = (opt: string) => {
+    if (value.includes(opt)) onChange(value.filter((v) => v !== opt));
+    else onChange([...value, opt]);
+  };
+
+  const removeChip = (opt: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    onChange(value.filter((v) => v !== opt));
+  };
+
+  return (
+    <div ref={ref} className="relative w-full">
+      {/* Trigger */}
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="w-full text-left rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white text-sm font-medium px-5 py-3.5 pr-12 focus:outline-none focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-all duration-200 hover:bg-[#0ea5e9]/15 flex items-center min-h-[52px]"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        {value.length === 0 ? (
+          <span className="text-gray-400">Choose services…</span>
+        ) : (
+          <div className="flex flex-wrap gap-1.5 items-center">
+            {value.slice(0, 3).map((v) => (
+              <span
+                key={v}
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#0ea5e9]/25 border border-[#0ea5e9]/40 px-2.5 py-0.5 text-[12px] font-medium text-white"
+              >
+                {v}
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => removeChip(v, e)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') removeChip(v, e as unknown as React.MouseEvent);
+                  }}
+                  className="hover:bg-white/15 rounded-full p-0.5 transition-colors cursor-pointer"
+                  aria-label={`Remove ${v}`}
+                >
+                  <X size={11} strokeWidth={2.5} />
+                </span>
+              </span>
+            ))}
+            {value.length > 3 && (
+              <span className="text-[12px] text-[#7dd3fc] font-semibold">
+                +{value.length - 3} more
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Custom chevron */}
+        <span
+          className={`absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-[#0ea5e9]/20 border border-[#0ea5e9]/40 transition-all duration-300 ${
+            open ? 'rotate-180 bg-[#0ea5e9]/40' : 'rotate-0'
+          }`}
+        >
+          <ChevronDown size={14} strokeWidth={2.5} className="text-white" />
+        </span>
+      </button>
+
+      {/* Panel */}
+      <div
+        className={`absolute left-0 right-0 mt-2 z-30 origin-top transition-all duration-200 ease-out ${
+          open
+            ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+            : 'opacity-0 -translate-y-2 scale-[0.98] pointer-events-none'
+        }`}
+      >
+        <div
+          className="rounded-2xl border border-[#0ea5e9]/40 bg-[#0b1220]/95 backdrop-blur-xl shadow-2xl overflow-hidden"
+          style={{ boxShadow: '0 20px 60px -10px rgba(14,165,233,0.35), 0 0 0 1px rgba(14,165,233,0.15)' }}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-gradient-to-r from-[#0ea5e9]/15 to-transparent">
+            <span className="text-[11px] font-semibold tracking-[0.18em] text-sky-300 uppercase">
+              {value.length > 0 ? `${value.length} selected` : 'Select multiple'}
+            </span>
+            {value.length > 0 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onChange([]);
+                }}
+                className="text-[11px] font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-wider"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          {/* Options */}
+          <ul role="listbox" className="max-h-64 overflow-y-auto py-1.5 scrollbar-thin">
+            {SERVICE_OPTIONS.map((opt) => {
+              const selected = value.includes(opt);
+              return (
+                <li key={opt}>
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={selected}
+                    onClick={() => toggle(opt)}
+                    className={`group w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-150 ${
+                      selected
+                        ? 'bg-[#0ea5e9]/15 text-white'
+                        : 'text-gray-300 hover:bg-white/[0.04] hover:text-white'
+                    }`}
+                  >
+                    {/* Checkbox */}
+                    <span
+                      className={`flex items-center justify-center w-[18px] h-[18px] rounded-md border transition-all duration-200 shrink-0 ${
+                        selected
+                          ? 'bg-gradient-to-br from-[#38bdf8] to-[#0284c7] border-[#0ea5e9] shadow-[0_0_10px_rgba(14,165,233,0.5)]'
+                          : 'border-gray-500 group-hover:border-[#0ea5e9]/70'
+                      }`}
+                    >
+                      <Check
+                        size={12}
+                        strokeWidth={3}
+                        className={`text-white transition-all duration-200 ${
+                          selected ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+                        }`}
+                      />
+                    </span>
+                    <span className="flex-1 text-left font-medium">{opt}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: rgba(14, 165, 233, 0.35);
+          border-radius: 6px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.6); }
+      `}</style>
+    </div>
+  );
+}
+
 export function Contact() {
+  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
+  const [services, setServices] = useState<string[]>([]);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setStatus('error');
+      setErrorMsg('Please fill in your name, email, and message.');
+      return;
+    }
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, services }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || 'Failed to send message');
+      setStatus('success');
+      setForm({ name: '', email: '', company: '', message: '' });
+      setServices([]);
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+    }
+  };
+
   return (
     <div id="contact" className="relative w-full min-h-[800px] flex items-center py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -861,19 +1248,76 @@ export function Contact() {
             <h2 className="text-4xl font-bold text-white mb-2 tracking-tight">Contact us</h2>
             <p className="text-gray-300 font-medium text-lg">Get in touch with us today to see how we can help you</p>
           </div>
-          <form className="space-y-4">
-            <Input type="text" placeholder="Full name" inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
-            <Input type="email" placeholder="Email" inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
-            <Input type="text" placeholder="Company" inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
+          <form className="space-y-4" onSubmit={handleSubmit} noValidate>
             <Input
-              type="select"
-              inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors [&>option]:text-black"
-              options={['Choose a service...', 'Employee Management', 'Attendance Management', 'Leave Management', 'Payroll Management', 'Reports & Analytics', 'Employee Self-Service']}
+              type="text"
+              placeholder="Full name"
+              value={form.name}
+              onChange={update('name')}
+              required
+              inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors"
             />
-            <Input type="textarea" placeholder="Message" rows={4} inputClassName="rounded-3xl shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors" />
+            <Input
+              type="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={update('email')}
+              required
+              inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors"
+            />
+            <Input
+              type="text"
+              placeholder="Company"
+              value={form.company}
+              onChange={update('company')}
+              inputClassName="rounded-full shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors"
+            />
+
+            {/* Custom multi-select */}
+            <div className="mb-4 w-full">
+              <ServicesMultiSelect value={services} onChange={setServices} />
+            </div>
+
+            <Input
+              type="textarea"
+              placeholder="Message"
+              rows={4}
+              value={form.message}
+              onChange={update('message')}
+              required
+              inputClassName="rounded-3xl shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors"
+            />
+
+            {/* Status messages */}
+            {status === 'success' && (
+              <div className="rounded-2xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200 flex items-center gap-2">
+                <CheckCircle2 size={16} />
+                Thanks! Your message has been sent. We&apos;ll be in touch shortly.
+              </div>
+            )}
+            {status === 'error' && errorMsg && (
+              <div className="rounded-2xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200 flex items-center gap-2">
+                <X size={16} />
+                {errorMsg}
+              </div>
+            )}
+
             <div className="pt-2">
-              <Button type="button" variant="secondary" size="lg" className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold">
-                SEND YOUR MESSAGE
+              <Button
+                type="submit"
+                variant="secondary"
+                size="lg"
+                disabled={status === 'sending'}
+                className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold disabled:opacity-70"
+              >
+                {status === 'sending' ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin mr-2" />
+                    SENDING…
+                  </>
+                ) : (
+                  'SEND YOUR MESSAGE'
+                )}
               </Button>
             </div>
           </form>
