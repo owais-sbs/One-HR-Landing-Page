@@ -13,6 +13,16 @@ type ContactPayload = {
 };
 
 const RECIPIENTS = ['info@onepathsolutions.com', 'khan500823@gmail.com'];
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function resolveMailConfig() {
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const port = Number(process.env.SMTP_PORT || 587);
+  const user = process.env.SMTP_USER || process.env.EMAIL_USER;
+  const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+  const from = process.env.SMTP_FROM || process.env.EMAIL_FROM || (user ? `"One HR Contact" <${user}>` : undefined);
+  return { host, port, user, pass, from };
+}
 
 const escapeHtml = (s: string) =>
   s
@@ -62,10 +72,12 @@ function buildHtml(p: Required<Omit<ContactPayload, 'services'>> & { services: s
 }
 
 export async function POST(request: Request) {
+  const requestId = `contact_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   let body: ContactPayload;
   try {
     body = (await request.json()) as ContactPayload;
   } catch {
+    console.error(`[contact:${requestId}] invalid JSON body`);
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
@@ -81,17 +93,16 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!EMAIL_REGEX.test(email)) {
     return NextResponse.json({ error: 'Please provide a valid email address.' }, { status: 400 });
   }
 
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const port = Number(process.env.SMTP_PORT || 587);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || (user ? `"One HR Contact" <${user}>` : undefined);
+  const { host, port, user, pass, from } = resolveMailConfig();
 
   if (!user || !pass) {
+    console.error(
+      `[contact:${requestId}] Missing mail env vars. Expected SMTP_USER/SMTP_PASS or EMAIL_USER/EMAIL_PASS.`
+    );
     return NextResponse.json(
       { error: 'Email service is not configured. Please contact the site administrator.' },
       { status: 500 }
@@ -119,6 +130,9 @@ export async function POST(request: Request) {
   ].join('\n');
 
   try {
+    console.log(
+      `[contact:${requestId}] Sending mail via host=${host} port=${port} as=${user} to=${RECIPIENTS.join(',')}`
+    );
     await transporter.sendMail({
       from,
       to: RECIPIENTS.join(', '),
@@ -127,8 +141,9 @@ export async function POST(request: Request) {
       text,
       html,
     });
+    console.log(`[contact:${requestId}] Mail sent successfully`);
   } catch (err) {
-    console.error('[contact] sendMail failed:', err);
+    console.error(`[contact:${requestId}] sendMail failed:`, err);
     return NextResponse.json(
       { error: 'Failed to send your message. Please try again later.' },
       { status: 502 }
