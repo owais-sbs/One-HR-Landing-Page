@@ -24,15 +24,15 @@ export function Hero() {
       className="relative overflow-hidden bg-black flex flex-col isolate"
       style={{ minHeight: 'calc(100vh - 60px)' }}
     >
-      {/* Background image */}
-      <Image
-        src="/background.png"
-        alt=""
-        fill
-        priority
-        quality={100}
-        sizes="100vw"
-        className="object-cover object-center pointer-events-none select-none -z-10"
+      {/* Deployment-safe static background from /public */}
+      <div
+        className="absolute inset-0 pointer-events-none select-none -z-10"
+        style={{
+          backgroundImage: "url('/background.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
       />
 
       {/* Vignette + dark gradient overlay for text contrast */}
@@ -1226,7 +1226,13 @@ export function Contact() {
   return (
     <div id="contact" className="relative w-full min-h-[800px] flex items-center py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <Image src={contactImg} alt="Professional Corporate Office" fill className="object-cover object-center grayscale opacity-80" />
+        <Image
+          src={contactImg}
+          alt="Professional Corporate Office"
+          fill
+          unoptimized
+          className="object-cover object-center grayscale opacity-80"
+        />
         <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" />
       </div>
 
