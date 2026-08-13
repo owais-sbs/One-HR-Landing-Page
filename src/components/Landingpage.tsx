@@ -733,67 +733,264 @@ const plans = [
 
 
 // ─────────────────────────────────────────────
-// Oracle Fusion Integration
+// Enterprise Integrations (Oracle · SAP · MS D365) — auto-cycling carousel
 // ─────────────────────────────────────────────
-const integrationPoints = [
+
+const allIntegrations = [
+  // ── Oracle Fusion ──────────────────────────────────────────────────────────
   {
-    title: 'Bi-directional Data Sync',
-    desc: 'Employee records, org structures, and cost centres sync automatically between One HR and Oracle Fusion HCM — no manual exports, no data drift.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" />
-        <polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" />
-      </svg>
-    ),
+    id: 'oracle',
+    partnerLabel: 'Oracle Fusion',
+    partnerShort: 'ORC',
+    partnerBg: '#ea4335',
+    accentGradient: 'linear-gradient(90deg, #ea4335 0%, #f97316 40%, #38bdf8 100%)',
+    glowColor: 'rgba(234,67,53,0.12)',
+    headingHighlight: 'Oracle Fusion HCM',
+    description:
+      'One HR is built to work alongside Oracle Fusion — not replace it. Your enterprise data stays in sync, your teams stay aligned, and your workflows stay uninterrupted.',
+    points: [
+      {
+        title: 'Bi-directional Data Sync',
+        desc: 'Employee records, org structures, and cost centres sync automatically between One HR and Oracle Fusion HCM — no manual exports, no data drift.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" />
+            <polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Payroll & Finance Alignment',
+        desc: 'Payroll runs processed in One HR push salary journals, deductions, and tax entries directly into Oracle Fusion Financials — keeping your books always reconciled.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Unified Workforce Reporting',
+        desc: 'Combine attendance, leave, and performance data from One HR with Oracle Fusion Analytics to generate consolidated workforce intelligence reports.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Single Sign-On (SSO)',
+        desc: 'Employees log in once via Oracle Identity Cloud and access both platforms seamlessly — no duplicate credentials, full audit trail maintained.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Compliance & Audit Logs',
+        desc: "Every HR action — approvals, payroll changes, access grants — is logged and mirrored to Oracle Fusion's compliance module for full regulatory traceability.",
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        ),
+      },
+      {
+        title: 'REST API & Webhooks',
+        desc: 'A fully documented REST API and real-time webhooks let your Oracle Fusion implementation team connect, extend, and automate any workflow without custom middleware.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+        ),
+      },
+    ],
+    strip: [
+      { label: 'Oracle Fusion Compatible', sub: 'Connect your enterprise workflows with Oracle Fusion', iconColor: '#ea4335', iconBg: 'rgba(234,67,53,0.15)', icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /> },
+      { label: 'Real-Time Sync', sub: 'Data updates propagate in under 2 seconds', iconColor: '#38bdf8', iconBg: 'rgba(56,189,248,0.1)', icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /> },
+      { label: 'Zero Middleware', sub: 'Direct API integration — no third-party connectors needed', iconColor: '#34d399', iconBg: 'rgba(52,211,153,0.1)', icon: <polyline points="20 6 9 17 4 12" /> },
+    ],
   },
+
+  // ── SAP ────────────────────────────────────────────────────────────────────
   {
-    title: 'Payroll & Finance Alignment',
-    desc: 'Payroll runs processed in One HR push salary journals, deductions, and tax entries directly into Oracle Fusion Financials — keeping your books always reconciled.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-      </svg>
-    ),
+    id: 'sap',
+    partnerLabel: 'SAP',
+    partnerShort: 'SAP',
+    partnerBg: '#0070f3',
+    accentGradient: 'linear-gradient(90deg, #0070f3 0%, #38bdf8 60%, #6366f1 100%)',
+    glowColor: 'rgba(0,112,243,0.14)',
+    headingHighlight: 'SAP',
+    description:
+      'Connect your business systems with SAP to streamline enterprise data, automate workflows, and keep critical business operations synchronized in real time.',
+    points: [
+      {
+        title: 'Employee & HR Data Sync',
+        desc: 'Sync employee and workforce data between your platform and SAP in real time.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Payroll Integration',
+        desc: 'Connect payroll data and processes for accurate and seamless synchronization.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Organizational Data Sync',
+        desc: 'Keep departments, positions, and organizational structures aligned across systems.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="3" width="6" height="6" rx="1" /><rect x="16" y="3" width="6" height="6" rx="1" />
+            <rect x="9" y="15" width="6" height="6" rx="1" />
+            <path d="M5 9v3h14V9" /><line x1="12" y1="12" x2="12" y2="15" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Leave & Attendance Integration',
+        desc: 'Synchronize employee leave, attendance, and workforce records automatically.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Secure API Connectivity',
+        desc: 'Enable secure and reliable data exchange through SAP APIs.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Automated HR Workflows',
+        desc: 'Automate repetitive HR processes and reduce manual data entry.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10" /><polyline points="12 6 12 12 16 14" />
+          </svg>
+        ),
+      },
+    ],
+    strip: [
+      { label: 'SAP Integration Compatible', sub: 'Connect your enterprise workflows with SAP', iconColor: '#0070f3', iconBg: 'rgba(0,112,243,0.15)', icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /> },
+      { label: 'Real-Time Sync', sub: 'Keep business data continuously synchronized', iconColor: '#38bdf8', iconBg: 'rgba(56,189,248,0.1)', icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /> },
+      { label: 'Zero Middleware', sub: 'Simplify integrations without unnecessary complexity', iconColor: '#34d399', iconBg: 'rgba(52,211,153,0.1)', icon: <polyline points="20 6 9 17 4 12" /> },
+    ],
   },
+
+  // ── Microsoft Dynamics 365 ─────────────────────────────────────────────────
   {
-    title: 'Unified Workforce Reporting',
-    desc: 'Combine attendance, leave, and performance data from One HR with Oracle Fusion Analytics to generate consolidated workforce intelligence reports.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Single Sign-On (SSO)',
-    desc: 'Employees log in once via Oracle Identity Cloud and access both platforms seamlessly — no duplicate credentials, full audit trail maintained.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Compliance & Audit Logs',
-    desc: "Every HR action — approvals, payroll changes, access grants — is logged and mirrored to Oracle Fusion's compliance module for full regulatory traceability.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'REST API & Webhooks',
-    desc: 'A fully documented REST API and real-time webhooks let your Oracle Fusion implementation team connect, extend, and automate any workflow without custom middleware.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-      </svg>
-    ),
+    id: 'd365',
+    partnerLabel: 'Microsoft Dynamics 365',
+    partnerShort: 'D365',
+    partnerBg: '#0078d4',
+    accentGradient: 'linear-gradient(90deg, #0078d4 0%, #00b4d8 50%, #38bdf8 100%)',
+    glowColor: 'rgba(0,120,212,0.14)',
+    headingHighlight: 'Microsoft Dynamics 365',
+    description:
+      'Connect your business platform with Microsoft Dynamics 365 to unify customer, financial, operational, and workforce data across your enterprise.',
+    points: [
+      {
+        title: 'Customer & Account Sync',
+        desc: 'Keep customer, account, and contact information synchronized across platforms.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Sales Data Integration',
+        desc: 'Connect leads, opportunities, and sales data for a unified workflow.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Finance & Invoice Sync',
+        desc: 'Synchronize invoices, payments, and financial records with Dynamics 365.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Contact & Lead Management',
+        desc: 'Centralize and manage customer contacts and leads across connected systems.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Secure API Connectivity',
+        desc: 'Connect securely with Dynamics 365 using reliable API integrations.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        ),
+      },
+      {
+        title: 'Automated Business Workflows',
+        desc: 'Automate business processes and keep critical operations moving efficiently.',
+        icon: (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10" /><polyline points="12 6 12 12 16 14" />
+          </svg>
+        ),
+      },
+    ],
+    strip: [
+      { label: 'Dynamics 365 Compatible', sub: 'Connect your business workflows with Microsoft Dynamics 365', iconColor: '#0078d4', iconBg: 'rgba(0,120,212,0.15)', icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /> },
+      { label: 'Real-Time Sync', sub: 'Keep critical business data synchronized', iconColor: '#38bdf8', iconBg: 'rgba(56,189,248,0.1)', icon: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /> },
+      { label: 'Zero Middleware', sub: 'Build streamlined integrations without unnecessary complexity', iconColor: '#34d399', iconBg: 'rgba(52,211,153,0.1)', icon: <polyline points="20 6 9 17 4 12" /> },
+    ],
   },
 ];
 
 export function OracleIntegration() {
+  const [active, setActive] = useState(0);
+  const [fading, setFading] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const goTo = (idx: number) => {
+    if (idx === active) return;
+    setFading(true);
+    setTimeout(() => {
+      setActive(idx);
+      setFading(false);
+    }, 350);
+  };
+
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      const next = (active + 1) % allIntegrations.length;
+      goTo(next);
+    }, 5000);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
+
+  const intg = allIntegrations[active];
+
   return (
     <section id="oracle" className="relative overflow-hidden py-24 md:py-32"
       style={{ background: 'linear-gradient(160deg, #0f172a 0%, #0c1a2e 55%, #0f2340 100%)', scrollMarginTop: '74px' }}
@@ -802,124 +999,135 @@ export function OracleIntegration() {
       <div className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '48px 48px' }}
       />
-      {/* Glow orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(234,67,53,0.12) 0%, transparent 70%)' }} />
+      {/* Glow orbs — react to active slide */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700"
+        style={{ background: `radial-gradient(circle, ${intg.glowColor} 0%, transparent 70%)` }} />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full blur-3xl pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%)' }} />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-14">
 
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex flex-col items-center gap-6 mb-8">
-          {/* Enterprise Integration pill — above lockup */}
-          <div className="inline-flex items-center justify-center border border-white/10 rounded-full px-5 py-1.5 bg-white/5">
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-sky-400 uppercase">Enterprise Integration</span>
-          </div>
-
-          {/* One HR + Oracle Fusion lockup */}
-          <div className="inline-flex items-center gap-4 px-6 py-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
-            {/* One HR logo mark */}
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white text-xs font-black">1HR</div>
-              <span className="text-white font-bold text-sm">One HR</span>
-            </div>
-            <div className="flex items-center gap-1.5 text-gray-400">
-              <div className="w-5 h-px bg-gray-600" />
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
-                <polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" />
-                <polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" />
-              </svg>
-              <div className="w-5 h-px bg-gray-600" />
-            </div>
-            {/* Oracle logo mark */}
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#ea4335] flex items-center justify-center">
-                <span className="text-white text-[10px] font-black tracking-tight">ORC</span>
+        {/* Animated content wrapper */}
+        <div
+          style={{
+            opacity: fading ? 0 : 1,
+            transform: fading ? 'translateY(12px)' : 'translateY(0)',
+            transition: 'opacity 0.35s ease, transform 0.35s ease',
+          }}
+        >
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="flex flex-col items-center gap-6 mb-8">
+              {/* Enterprise Integration pill */}
+              <div className="inline-flex items-center justify-center border border-white/10 rounded-full px-5 py-1.5 bg-white/5">
+                <span className="text-[10px] font-semibold tracking-[0.2em] text-sky-400 uppercase">Enterprise Integrations</span>
               </div>
-              <span className="text-white font-bold text-sm">Oracle Fusion</span>
+
+              {/* One HR + Partner lockup */}
+              <div className="inline-flex items-center gap-4 px-6 py-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                {/* One HR logo */}
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white text-xs font-black">1HR</div>
+                  <span className="text-white font-bold text-sm">One HR</span>
+                </div>
+                {/* Arrow connector */}
+                <div className="flex items-center gap-1.5 text-gray-400">
+                  <div className="w-5 h-px bg-gray-600" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
+                    <polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                    <polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                  </svg>
+                  <div className="w-5 h-px bg-gray-600" />
+                </div>
+                {/* Partner logo */}
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: intg.partnerBg }}>
+                    <span className="text-white text-[9px] font-black tracking-tight">{intg.partnerShort}</span>
+                  </div>
+                  <span className="text-white font-bold text-sm">{intg.partnerLabel}</span>
+                </div>
+              </div>
             </div>
-          </div>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-5">
+              Seamlessly connected with<br />
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: intg.accentGradient }}>
+                {intg.headingHighlight}
+              </span>
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+              {intg.description}
+            </p>
           </div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-5">
-            Seamlessly connected with<br />
-            <span className="text-transparent bg-clip-text"
-              style={{ backgroundImage: 'linear-gradient(90deg, #ea4335 0%, #f97316 40%, #38bdf8 100%)' }}>
-              Oracle Fusion HCM
-            </span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            One HR is built to work alongside Oracle Fusion — not replace it. Your enterprise data stays in sync, your teams stay aligned, and your workflows stay uninterrupted.
-          </p>
-        </div>
+          {/* Integration points grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+            {intg.points.map((point, i) => (
+              <div
+                key={i}
+                className="group relative rounded-2xl border border-white/[0.08] bg-white/[0.04] p-7 hover:border-sky-400/30 hover:bg-white/[0.07] transition-all duration-300"
+              >
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ background: 'radial-gradient(circle at 15% 15%, rgba(56,189,248,0.07) 0%, transparent 60%)' }} />
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 text-sky-400"
+                  style={{ background: 'rgba(56,189,248,0.1)' }}>
+                  {point.icon}
+                </div>
+                <h3 className="text-[16px] font-bold text-white mb-2">{point.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{point.desc}</p>
+              </div>
+            ))}
+          </div>
 
-        {/* Integration points grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
-          {integrationPoints.map((point, i) => (
-            <div
-              key={i}
-              className="group relative rounded-2xl border border-white/[0.08] bg-white/[0.04] p-7 hover:border-sky-400/30 hover:bg-white/[0.07] transition-all duration-300"
+          {/* Bottom trust bar */}
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            {intg.strip.map((item, i) => (
+              <div key={i} className="flex items-center gap-4">
+                {i > 0 && <div className="hidden md:block w-px h-10 bg-white/10 mr-[-1rem]" />}
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: item.iconBg }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={item.iconColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    {item.icon}
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-semibold text-sm">{item.label}</p>
+                  <p className="text-gray-500 text-xs mt-0.5">{item.sub}</p>
+                </div>
+              </div>
+            ))}
+            <a
+              href="#contact"
+              className="shrink-0 inline-flex items-center gap-2 text-white text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+              style={{ background: `linear-gradient(90deg, ${intg.partnerBg}, #38bdf8)` }}
             >
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{ background: 'radial-gradient(circle at 15% 15%, rgba(56,189,248,0.07) 0%, transparent 60%)' }} />
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 text-sky-400"
-                style={{ background: 'rgba(56,189,248,0.1)' }}>
-                {point.icon}
-              </div>
-              <h3 className="text-[16px] font-bold text-white mb-2">{point.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{point.desc}</p>
-            </div>
-          ))}
+              Request Integration Demo
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+          </div>
         </div>
 
-        {/* Bottom trust bar */}
-        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#ea4335]/15 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ea4335" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Oracle Fusion Compatible</p>
-              <p className="text-gray-500 text-xs mt-0.5">Tested against Oracle Fusion HCM Cloud REST APIs</p>
-            </div>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/10" />
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-sky-400/10 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Real-time Sync</p>
-              <p className="text-gray-500 text-xs mt-0.5">Data updates propagate in under 2 seconds</p>
-            </div>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/10" />
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-emerald-400/10 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Zero Middleware</p>
-              <p className="text-gray-500 text-xs mt-0.5">Direct API integration — no third-party connectors needed</p>
-            </div>
-          </div>
-          <a
-            href="#contact"
-            className="shrink-0 inline-flex items-center gap-2 bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
-          >
-            Request Integration Demo
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-            </svg>
-          </a>
+        {/* Dot nav */}
+        <div className="flex items-center justify-center gap-3 mt-10">
+          {allIntegrations.map((item, i) => (
+            <button
+              key={item.id}
+              onClick={() => goTo(i)}
+              aria-label={`Show ${item.partnerLabel} integration`}
+              className="group relative flex items-center gap-2 focus:outline-none"
+            >
+              <span
+                className="block rounded-full transition-all duration-500"
+                style={{
+                  width: i === active ? '28px' : '8px',
+                  height: '8px',
+                  background: i === active ? intg.partnerBg : 'rgba(255,255,255,0.2)',
+                  boxShadow: i === active ? `0 0 10px 2px ${intg.partnerBg}60` : 'none',
+                }}
+              />
+            </button>
+          ))}
         </div>
 
       </div>
