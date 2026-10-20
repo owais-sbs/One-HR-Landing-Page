@@ -7,11 +7,23 @@ interface SectionProps {
   className?: string;
   containerClassName?: string;
   bgWhite?: boolean;
+  style?: React.CSSProperties;
 }
 
-export function Section({ id, children, className = '', containerClassName = '', bgWhite = true }: SectionProps) {
+export function Section({
+  id,
+  children,
+  className = '',
+  containerClassName = '',
+  bgWhite = true,
+  style,
+}: SectionProps) {
   return (
-    <section id={id} style={{ scrollMarginTop: '74px' }} className={`py-16 md:py-24 ${bgWhite ? 'bg-white' : ''} ${className}`}>
+    <section
+      id={id}
+      style={{ scrollMarginTop: '74px', ...style }}
+      className={`py-16 md:py-24 ${bgWhite ? 'bg-white' : ''} ${className}`}
+    >
       <Container className={containerClassName}>
         {children}
       </Container>
