@@ -1,14 +1,15 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 const NAV_HEIGHT = 74; // px — keep in sync with navbar h-[74px]
 
 const navItems = [
-  { label: 'About',       href: '#about' },
-  { label: 'Features',    href: '#services' },
-  { label: 'Integration', href: '#oracle' },
-  { label: 'Pricing',     href: '#resources' },
-  { label: 'Contact',     href: '#contact' },
+  { label: 'About', href: 'about' },
+  { label: 'Features', href: 'services' },
+  { label: 'Integration', href: 'oracle' },
+  { label: 'Pricing', href: 'resources' },
+  { label: 'Contact', href: 'contact' },
 ];
 
 function smoothScrollTo(id: string) {
@@ -18,86 +19,108 @@ function smoothScrollTo(id: string) {
   window.scrollTo({ top, behavior: 'smooth' });
 }
 
-export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+export function Navbar({ forceSolid = false }: { forceSolid?: boolean }) {
+  const [scrolled, setScrolled] = useState(forceSolid);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === '/';
 
   useEffect(() => {
+    if (forceSolid) {
+      setScrolled(true);
+      return;
+    }
     const handleScroll = () => setScrolled(window.scrollY > 80);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [forceSolid]);
+
+  useEffect(() => {
+    if (!isHome) return;
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    const timer = window.setTimeout(() => smoothScrollTo(hash), 80);
+    return () => window.clearTimeout(timer);
+  }, [isHome, pathname]);
+
+  const goToSection = (id: string) => {
+    setMenuOpen(false);
+    if (isHome) {
+      smoothScrollTo(id);
+      return;
+    }
+    router.push(`/#${id}`);
+  };
+
+  const goHome = () => {
+    setMenuOpen(false);
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    router.push('/');
+  };
 
   const linkClass = `transition-colors duration-200 cursor-pointer ${
-    scrolled ? 'text-gray-600 hover:text-[#111827]' : 'text-gray-300 hover:text-white'
+    scrolled ? 'text-gray-600 hover:text-[#111827]' : 'text-white/80 hover:text-white'
   }`;
+
+  const ctaStyle = scrolled
+    ? undefined
+    : {
+        backgroundImage: 'linear-gradient(90deg, #3b82f6 0%, #6366f1 55%, #8b5cf6 100%)',
+        boxShadow: '0 10px 28px -10px rgba(99,102,241,0.85)',
+      };
 
   return (
     <nav
       className={`w-full sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-sm border-b border-gray-100' : 'bg-black'
+        scrolled ? 'bg-white shadow-sm border-b border-gray-100' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-14 flex items-center justify-between h-[74px]">
-
-        {/* Logo */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center focus:outline-none"
-        >
+        <button onClick={goHome} className="flex items-center focus:outline-none">
           <span className="text-[26px] tracking-tight">
             <span className={`font-normal transition-colors duration-300 ${scrolled ? 'text-[#111827]' : 'text-white'}`}>One </span>
             <span className={`font-extrabold transition-colors duration-300 ${scrolled ? 'text-[#111827]' : 'text-white'}`}>HR</span>
-            <span className="font-extrabold text-[#2582ff]">.</span>
+            <span
+              className="font-extrabold"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              .
+            </span>
           </span>
         </button>
 
-        {/* Desktop Nav Links */}
         <div className="hidden md:flex items-center space-x-8 text-[15px] font-medium">
           {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => smoothScrollTo(item.href.replace('#', ''))}
-              className={linkClass}
-            >
+            <button key={item.label} onClick={() => goToSection(item.href)} className={linkClass}>
               {item.label}
             </button>
           ))}
         </div>
 
-        {/* Right: Login + GET STARTED */}
-        <div className="hidden md:flex items-center gap-6">
-          <a
-            href="#login"
-            className={`text-[15px] font-medium transition-colors duration-300 ${
-              scrolled ? 'text-[#111827] hover:text-gray-500' : 'text-white hover:text-gray-300'
-            }`}
-          >
-            Login
-          </a>
+        <div className="hidden md:flex items-center">
           <button
-            onClick={() => smoothScrollTo('contact')}
-            className={`text-[13px] font-bold border rounded-full px-6 py-2 transition-all duration-300 tracking-widest uppercase ${
+            onClick={() => goToSection('contact')}
+            className={`text-[12px] font-bold rounded-full px-6 py-2.5 tracking-[0.14em] uppercase transition-all duration-300 ${
               scrolled
-                ? 'text-[#111827] border-[#111827] hover:bg-[#111827] hover:text-white'
-                : 'text-white border-transparent hover:brightness-110 shadow-[0_10px_30px_-12px_rgba(93,118,255,0.9)]'
+                ? 'text-[#111827] border border-[#111827] hover:bg-[#111827] hover:text-white'
+                : 'text-white border-transparent hover:brightness-110'
             }`}
-            style={
-              scrolled
-                ? undefined
-                : {
-                    backgroundImage:
-                      'linear-gradient(180deg, #6f8eff 0%, #5b63ea 54%, #2f2a8a 100%)',
-                    boxShadow:
-                      'inset 0 1px 0 rgba(255,255,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.1), 0 10px 34px -12px rgba(93,118,255,0.85)',
-                  }
-            }
+            style={ctaStyle}
           >
             Get Started
           </button>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
           onClick={() => setMenuOpen((v) => !v)}
@@ -109,35 +132,23 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div className={`md:hidden px-6 pb-5 flex flex-col gap-4 text-[15px] font-medium ${scrolled ? 'bg-white' : 'bg-black'}`}>
+        <div className={`md:hidden px-6 pb-5 flex flex-col gap-4 text-[15px] font-medium ${scrolled ? 'bg-white' : 'bg-[#020617]'}`}>
           {navItems.map((item) => (
             <button
               key={item.label}
-              onClick={() => { smoothScrollTo(item.href.replace('#', '')); setMenuOpen(false); }}
+              onClick={() => goToSection(item.href)}
               className={`text-left ${linkClass}`}
             >
               {item.label}
             </button>
           ))}
           <button
-            onClick={() => { smoothScrollTo('contact'); setMenuOpen(false); }}
-            className={`mt-2 text-[13px] font-bold border rounded-full px-6 py-2 w-fit tracking-widest uppercase text-white transition-all duration-300 ${
-              scrolled
-                ? 'border-[#111827] text-[#111827] hover:bg-[#111827] hover:text-white'
-                : 'border-transparent hover:brightness-110'
+            onClick={() => goToSection('contact')}
+            className={`mt-2 text-[12px] font-bold rounded-full px-6 py-2.5 w-fit tracking-[0.14em] uppercase text-white transition-all duration-300 ${
+              scrolled ? 'border border-[#111827] text-[#111827]' : 'border-transparent'
             }`}
-            style={
-              scrolled
-                ? undefined
-                : {
-                    backgroundImage:
-                      'linear-gradient(180deg, #6f8eff 0%, #5b63ea 54%, #2f2a8a 100%)',
-                    boxShadow:
-                      'inset 0 1px 0 rgba(255,255,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.1), 0 10px 34px -12px rgba(93,118,255,0.85)',
-                  }
-            }
+            style={scrolled ? undefined : ctaStyle}
           >
             Get Started
           </button>

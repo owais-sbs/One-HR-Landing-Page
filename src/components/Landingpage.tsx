@@ -8,12 +8,14 @@ import { Heading } from './Heading';
 import { Card } from './Card';
 import { Button } from './Button';
 import { Input } from './Input';
+import Link from 'next/link';
 import {
   CheckCircle2, Users, Clock, CalendarDays, Banknote, BarChart3, UserCog,
   Heart, Activity, DollarSign, Handshake, Award, Lightbulb,
   ShieldCheck, Target, TrendingUp, Mail, Phone, MapPin, ArrowRight,
-  ChevronDown, Check, X, Loader2,
+  ChevronDown, Check, X,
 } from 'lucide-react';
+import { buildContactWhatsAppMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 
 // ─────────────────────────────────────────────
 // Hero
@@ -21,190 +23,85 @@ import {
 export function Hero() {
   return (
     <section
-      className="relative overflow-hidden bg-black flex flex-col isolate"
-      style={{ minHeight: 'calc(100vh - 60px)' }}
+      className="relative overflow-hidden flex flex-col isolate -mt-[74px] pt-[74px]"
+      style={{
+        minHeight: '100vh',
+        background: '#020617',
+      }}
     >
-      {/* Deployment-safe static background from /public */}
+      {/* Full-bleed background art */}
       <div
         className="absolute inset-0 pointer-events-none select-none -z-10"
         style={{
-          backgroundImage: "url('/background.png')",
+          backgroundImage: "url('/hero-bg.jpg')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center bottom',
           backgroundRepeat: 'no-repeat',
         }}
       />
 
-      {/* Vignette + dark gradient overlay for text contrast */}
+      {/* Soft top veil for headline contrast */}
       <div
         className="absolute inset-0 pointer-events-none -z-10"
         style={{
           background:
-            'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.55) 100%)',
+            'linear-gradient(180deg, rgba(2,6,23,0.55) 0%, rgba(2,6,23,0.25) 38%, rgba(2,6,23,0.15) 60%, rgba(2,6,23,0.45) 100%)',
         }}
       />
 
-      {/* Soft radial vignette around the edges */}
-      <div
-        className="absolute inset-0 pointer-events-none -z-10"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
-        }}
-      />
-
-      {/* Subtle grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.06] pointer-events-none -z-10"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-          backgroundSize: '56px 56px',
-          maskImage:
-            'radial-gradient(ellipse at center, black 20%, transparent 75%)',
-          WebkitMaskImage:
-            'radial-gradient(ellipse at center, black 20%, transparent 75%)',
-        }}
-      />
-
-      {/* Accent glow blobs */}
-      <div
-        className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl pointer-events-none -z-10"
-        style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%)' }}
-      />
-      <div
-        className="absolute -top-10 right-[-10%] w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none -z-10"
-        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)' }}
-      />
-
-      {/* Centered hero content */}
-      <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 py-24">
-
-        {/* Badge pill */}
-        <div className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-1.5 mb-8 border border-white/10 bg-white/[0.03] backdrop-blur-md">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75 animate-ping" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sky-400" />
-          </span>
-          <span className="text-[10px] font-medium tracking-[0.22em] text-gray-300 uppercase">
+      <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pb-28 pt-10">
+        {/* Badge */}
+        <div className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-1.5 mb-8 border border-white/15 bg-white/[0.04] backdrop-blur-md shadow-[0_0_24px_rgba(59,130,246,0.15)]">
+          <span className="text-[11px] text-sky-300">✦</span>
+          <span className="text-[10px] font-medium tracking-[0.22em] text-slate-200 uppercase">
             The Future of HR Management
           </span>
         </div>
 
-        {/* Main headline */}
-        <h1
-          className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[68px] font-semibold leading-[1.08] tracking-[-0.02em] mb-6 max-w-3xl text-transparent bg-clip-text"
-          style={{
-            backgroundImage:
-              'linear-gradient(180deg, #ffffff 0%, #e2e8ff 40%, #a5b4fc 80%, #6366f1 100%)',
-          }}
-        >
-          Transform Talent
-          <br />
-          Into{' '}
-          <span className="relative inline-block">
-            <span
-              className="italic font-medium text-transparent bg-clip-text"
-              style={{
-                backgroundImage:
-                  'linear-gradient(95deg, #b4d8ff 0%, #73b7ff 26%, #7b8dff 58%, #7267ff 100%)',
-                filter: 'drop-shadow(0 0 24px rgba(99,102,241,0.55))',
-              }}
-            >
-              Suc
-              <span
-                className="text-transparent bg-clip-text"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(180deg, #ffffff 0%, #e2e8ff 40%, #a5b4fc 80%)',
-                }}
-              >
-                cess.
-              </span>
-            </span>
-            {/* underline glow */}
-            <span
-              className="absolute left-1 right-3 -bottom-1 h-[2px] rounded-full opacity-80"
-              style={{
-                background:
-                  'linear-gradient(90deg, transparent 0%, #73b7ff 28%, #7b8dff 70%, transparent 100%)',
-                filter: 'blur(1px)',
-              }}
-            />
+        {/* Headline */}
+        <h1 className="text-[2.6rem] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold leading-[1.08] tracking-[-0.03em] mb-6 max-w-4xl text-white">
+          Transform Talent Into{' '}
+          <span
+            className="text-transparent bg-clip-text"
+            style={{
+              backgroundImage: 'linear-gradient(90deg, #60a5fa 0%, #818cf8 45%, #a78bfa 100%)',
+            }}
+          >
+            Success.
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p
-          className="text-[15px] md:text-base max-w-md leading-[1.75] font-light text-transparent bg-clip-text"
-          style={{
-            backgroundImage:
-              'linear-gradient(180deg, #d8ebff 0%, #afc6e8 55%, #88a1ca 100%)',
-          }}
-        >
-          Institutional-grade HR automation system designed for elite
-          organizational cultures. Manage scale with unparalleled technical
-          superiority.
+        <p className="text-[15px] md:text-[17px] max-w-xl leading-[1.7] text-slate-400 font-normal">
+          Institutional-grade HR automation built for ambitious teams. Simplify people
+          operations, unlock insights, and scale with confidence.
         </p>
 
-        {/* CTA */}
-        <div className="mt-12">
+        {/* Dual CTAs */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
           <a
-            href="#contact"
-            className="group relative inline-flex items-center gap-3 rounded-full pl-7 pr-2 py-2 text-[14px] font-medium text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
+            href="#services"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white transition-all duration-300 hover:brightness-110"
             style={{
-              backgroundImage:
-                'linear-gradient(180deg, #6f8eff 0%, #5b63ea 52%, #2f2a8a 100%)',
-              boxShadow:
-                'inset 0 1px 0 rgba(255,255,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.1), 0 14px 36px -10px rgba(79,97,255,0.78), 0 0 70px -8px rgba(99,102,241,0.55)',
+              backgroundImage: 'linear-gradient(90deg, #3b82f6 0%, #6366f1 55%, #8b5cf6 100%)',
+              boxShadow: '0 14px 36px -12px rgba(99,102,241,0.8)',
             }}
           >
-            {/* Top sheen */}
-            <span
-              className="absolute inset-x-2 top-px h-1/2 rounded-full pointer-events-none opacity-60"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)',
-              }}
-            />
-            <span className="relative tracking-[0.01em]">JOIN US NOW</span>
-            <span
-              className="relative flex items-center justify-center w-8 h-8 rounded-full transition-transform duration-300 group-hover:translate-x-0.5"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%)',
-                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
-              }}
-            >
-              <ArrowRight size={14} strokeWidth={2.4} />
-            </span>
-            {/* Outer glow halo */}
-            <span
-              className="absolute -inset-4 rounded-full pointer-events-none -z-10 opacity-80"
-              style={{
-                background:
-                  'radial-gradient(ellipse at center, rgba(93,118,255,0.62) 0%, transparent 70%)',
-                filter: 'blur(18px)',
-              }}
-            />
+            Explore the Platform
+            <ArrowRight size={16} strokeWidth={2.4} />
+          </a>
+          <a
+            href="#about"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white/90 border border-white/25 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/40 transition-all duration-300"
+          >
+            See How It Works
+            <ArrowRight size={16} strokeWidth={2.4} />
           </a>
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
-        <span className="text-[9px] font-semibold tracking-[0.25em] text-gray-400 uppercase">Scroll</span>
-        <div className="relative w-px h-10 bg-white/15 overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-sky-400 to-transparent animate-[scrollLine_2.2s_ease-in-out_infinite]" />
-        </div>
+        <p className="mt-10 text-[11px] font-medium tracking-[0.28em] text-slate-500 uppercase">
+          People · Performance · Progress
+        </p>
       </div>
-
-      <style jsx>{`
-        @keyframes scrollLine {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(200%); }
-        }
-      `}</style>
     </section>
   );
 }
@@ -713,7 +610,7 @@ const plans = [
   {
     name: 'Enterprise',
     price: 'Custom',
-    period: ' quote',
+    period: '',
     employeeLimit: 'Unlimited users',
     highlight: false,
     features: [
@@ -1137,59 +1034,84 @@ export function OracleIntegration() {
 
 export function Resources() {
   return (
-    <Section id="resources" className="bg-[#f8fafc] border-t border-gray-100">
-      <div className="text-center mb-14">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-[#2582ff] text-xs font-bold uppercase tracking-widest mb-4 border border-blue-100">Subscription Plans</span>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4 tracking-tight">Choose Your Plan</h2>
-        <p className="text-gray-500 text-lg max-w-xl mx-auto">Transparent pricing built for SMBs and growing enterprises. Scale up anytime.</p>
+    <Section
+      id="resources"
+      className="relative overflow-hidden border-t border-slate-100"
+      style={{
+        background:
+          'radial-gradient(ellipse at 50% 0%, #e8f4ff 0%, #f8fbff 42%, #ffffff 78%)',
+      }}
+    >
+      <div className="relative text-center mb-14 md:mb-16">
+        <p className="text-[11px] font-semibold tracking-[0.24em] text-sky-500 uppercase mb-4">
+          Pricing
+        </p>
+        <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#0f172a] mb-4 tracking-tight">
+          Plans built for growing teams
+        </h2>
+        <p className="text-slate-500 text-base max-w-xl mx-auto leading-relaxed">
+          Transparent monthly pricing with the controls, support, and scale enterprise HR teams expect.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-        {plans.map((plan, idx) => (
+      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7 max-w-6xl mx-auto items-stretch">
+        {plans.map((plan) => (
           <div
-            key={idx}
-            className={`relative flex flex-col rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+            key={plan.name}
+            className={`relative flex flex-col rounded-2xl bg-white transition-all duration-300 ${
               plan.highlight
-                ? 'bg-gradient-to-b from-[#1e3a5f] to-[#0f2340] text-white shadow-2xl shadow-blue-900/30 scale-[1.03]'
-                : 'bg-white border border-gray-100 shadow-md hover:shadow-xl text-[#111827]'
+                ? 'border-2 border-sky-400 shadow-[0_20px_50px_-24px_rgba(14,165,233,0.45)] md:-translate-y-3'
+                : 'border border-slate-200 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.18)] hover:shadow-[0_16px_40px_-20px_rgba(15,23,42,0.22)]'
             }`}
           >
             {plan.highlight && (
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9]" />
-            )}
-            {plan.highlight && (
-              <div className="absolute top-5 right-5">
-                <span className="bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                <span className="inline-block rounded-md bg-sky-500 text-white text-[10px] font-bold uppercase tracking-[0.14em] px-3.5 py-1.5 shadow-sm">
                   Most Popular
                 </span>
               </div>
             )}
 
-            <div className="p-8 flex flex-col flex-1">
-              <p className={`text-sm font-bold uppercase tracking-widest mb-3 ${plan.highlight ? 'text-sky-400' : 'text-[#2582ff]'}`}>{plan.name}</p>
-              <div className="flex items-end gap-1 mb-1">
-                <span className={`text-5xl font-extrabold tracking-tight ${plan.highlight ? 'text-white' : 'text-[#111827]'}`}>{plan.price}</span>
-                <span className={`text-base font-medium mb-2 ${plan.highlight ? 'text-sky-300' : 'text-gray-400'}`}>{plan.period}</span>
-              </div>
-              <p className={`text-sm mb-8 ${plan.highlight ? 'text-sky-300/80' : 'text-gray-400'}`}>{plan.employeeLimit}</p>
+            <div className="p-8 lg:p-9 flex flex-col flex-1">
+              <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-5">
+                {plan.name}
+              </p>
 
-              <ul className="space-y-3 mb-10 flex-1">
-                {plan.features.map((feat, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? 'bg-sky-500/20' : 'bg-blue-50'}`}>
-                      <CheckCircle2 size={13} className={plan.highlight ? 'text-sky-400' : 'text-[#0ea5e9]'} />
-                    </div>
-                    <span className={plan.highlight ? 'text-sky-100' : 'text-gray-600'}>{feat}</span>
+              <div className="flex items-baseline gap-1 mb-2">
+                {plan.price === 'Custom' ? (
+                  <span className="text-[2.5rem] font-bold tracking-tight text-[#0f172a] leading-none">
+                    Quote
+                  </span>
+                ) : (
+                  <>
+                    <span className="text-[2.75rem] font-bold tracking-tight text-[#0f172a] tabular-nums leading-none">
+                      {plan.price}
+                    </span>
+                    <span className="text-sm text-slate-400 font-medium">{plan.period}</span>
+                  </>
+                )}
+              </div>
+              <p className="text-sm text-slate-500 mb-7">{plan.employeeLimit}</p>
+
+              <div className="h-px w-full bg-slate-100 mb-7" />
+
+              <ul className="space-y-3.5 mb-9 flex-1">
+                {plan.features.map((feat) => (
+                  <li key={feat} className="flex items-start gap-3 text-[13.5px] leading-snug text-slate-600">
+                    <span className="mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-sky-50 text-sky-500">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
+                    {feat}
                   </li>
                 ))}
               </ul>
 
               <a
                 href="#contact"
-                className={`w-full text-center py-3.5 rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                className={`w-full text-center rounded-xl py-3.5 text-[13px] font-semibold transition-all duration-200 ${
                   plan.highlight
-                    ? 'bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] text-white shadow-lg shadow-blue-500/30'
-                    : 'border-2 border-[#2582ff] text-[#2582ff] hover:bg-[#2582ff] hover:text-white'
+                    ? 'bg-sky-500 text-white hover:bg-sky-600 shadow-[0_10px_24px_-12px_rgba(14,165,233,0.8)]'
+                    : 'bg-slate-900 text-white hover:bg-slate-800'
                 }`}
               >
                 {plan.cta}
@@ -1399,36 +1321,23 @@ function ServicesMultiSelect({
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
   const [services, setServices] = useState<string[]>([]);
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setStatus('error');
       setErrorMsg('Please fill in your name, email, and message.');
       return;
     }
-    setStatus('sending');
+    setStatus('idle');
     setErrorMsg('');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, services }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.error || 'Failed to send message');
-      setStatus('success');
-      setForm({ name: '', email: '', company: '', message: '' });
-      setServices([]);
-    } catch (err) {
-      setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
-    }
+    const text = buildContactWhatsAppMessage({ ...form, services });
+    window.open(buildWhatsAppUrl(text), '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -1502,13 +1411,6 @@ export function Contact() {
               inputClassName="rounded-3xl shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors"
             />
 
-            {/* Status messages */}
-            {status === 'success' && (
-              <div className="rounded-2xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200 flex items-center gap-2">
-                <CheckCircle2 size={16} />
-                Thanks! Your message has been sent. We&apos;ll be in touch shortly.
-              </div>
-            )}
             {status === 'error' && errorMsg && (
               <div className="rounded-2xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200 flex items-center gap-2">
                 <X size={16} />
@@ -1521,17 +1423,9 @@ export function Contact() {
                 type="submit"
                 variant="secondary"
                 size="lg"
-                disabled={status === 'sending'}
-                className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold disabled:opacity-70"
+                className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold"
               >
-                {status === 'sending' ? (
-                  <>
-                    <Loader2 size={16} className="animate-spin mr-2" />
-                    SENDING…
-                  </>
-                ) : (
-                  'SEND YOUR MESSAGE'
-                )}
+                SEND YOUR MESSAGE
               </Button>
             </div>
           </form>
@@ -1589,24 +1483,35 @@ export function Footer() {
                 { label: 'Contact',     id: 'contact' },
               ].map((item) => (
                 <li key={item.label}>
-                  <button
-                    onClick={() => {
-                      const el = document.getElementById(item.id);
-                      if (el) {
-                        const top = el.getBoundingClientRect().top + window.scrollY - 82;
-                        window.scrollTo({ top, behavior: 'smooth' });
-                      }
-                    }}
+                  <Link
+                    href={`/#${item.id}`}
                     className="hover:text-[#0ea5e9] transition-colors flex items-center text-left"
                   >
                     <ArrowRight size={14} className="mr-2 text-[#0ea5e9]" /> {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Legal — middle */}
+          <div>
+            <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">Legal</h4>
+            <ul className="space-y-4 text-sm font-medium">
+              <li>
+                <Link href="/privacy-policy" className="hover:text-[#0ea5e9] transition-colors flex items-center">
+                  <ArrowRight size={14} className="mr-2 text-[#0ea5e9]" /> Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms-of-service" className="hover:text-[#0ea5e9] transition-colors flex items-center">
+                  <ArrowRight size={14} className="mr-2 text-[#0ea5e9]" /> Terms &amp; Conditions
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact — right */}
           <div>
             <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">Contact Us</h4>
             <ul className="space-y-5 text-sm font-medium">
@@ -1616,8 +1521,7 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
-                <span className="text-gray-400">+91 96523 01382
-</span>
+                <span className="text-gray-400">+91 96523 01382</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="text-[#0ea5e9] mr-3 shrink-0" />
@@ -1626,30 +1530,21 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-white font-bold mb-6 text-lg tracking-wide uppercase">HR Insights</h4>
-            <p className="text-sm text-gray-400 mb-4 pr-2">Subscribe to our newsletter for the latest HR strategy and compliance updates.</p>
-            <div className="relative mt-2">
-              <input type="email" placeholder="Business Email" className="w-full bg-[#1e293b] border-none rounded-full px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9] text-white transition-colors pr-[110px]" />
-              <button type="button" className="absolute right-1 top-1 bottom-1 bg-gradient-to-r from-[#3b82f6] to-[#0ea5e9] hover:opacity-90 text-white rounded-full px-5 text-sm font-bold transition-opacity duration-300">
-                Subscribe
-              </button>
-            </div>
-          </div>
-
         </div>
 
-        <div className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center text-xs font-semibold text-gray-500">
+        <div className="border-t border-white/10 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center text-xs font-semibold text-gray-500 gap-3">
           <p>© {new Date().getFullYear()} One HR Management. All rights reserved.</p>
-          <p className="mt-4 md:mt-0">
-            Product Owned By <a href="https://onepathsolutions.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">OnePathSolutions</a>
+          <p className="md:text-right">
+            Product Owned By{' '}
+            <a
+              href="https://onepathsolutions.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              OnePathSolutions
+            </a>
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-              <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
-            ))}
-          </div>
         </div>
 
       </Container>
