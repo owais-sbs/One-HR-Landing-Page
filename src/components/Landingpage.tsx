@@ -1543,7 +1543,7 @@ export function Footer() {
             <ul className="space-y-5 text-sm font-medium">
               <li className="flex items-start">
                 <MapPin size={18} className="text-[#0ea5e9] mr-3 mt-0.5 shrink-0" />
-                <span className="leading-relaxed text-gray-400">8-1-21/146, Level 1, Mirza Arcade, Building,<br />Shaikpet Rd, Surya Nagar, Toli Chowki,<br />Hyderabad, Telangana 500008</span>
+                <span className="leading-relaxed text-gray-400">8-1-21/146, Level 1, Mirza Arcade,<br />Shaikpet Rd, Toli Chowki,<br />Hyderabad, Telangana 500008</span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="text-[#0ea5e9] mr-3 shrink-0" />

@@ -66,15 +66,19 @@ function submissionRows(
         i === rows.length - 1 ? '' : 'border-bottom:1px solid #eceff3;';
       let valueHtml = escapeHtml(row.value || '—');
       if (row.isEmail && row.value) {
-        valueHtml = `<a href="mailto:${escapeHtml(row.value)}" style="color:#2563eb;text-decoration:none;font-weight:600;">${escapeHtml(row.value)}</a>`;
+        valueHtml = `<a href="mailto:${escapeHtml(row.value)}" style="color:#2563eb;text-decoration:none;font-weight:600;word-break:break-all;">${escapeHtml(row.value)}</a>`;
       }
+      // Each row is a single full-width cell stacked: label on top, value below.
+      // This avoids the two-column squeeze on narrow mobile screens.
       return `
         <tr>
-          <td style="padding:18px 4px;${border}width:118px;vertical-align:top;color:#9ca3af;font-size:13px;font-weight:500;font-family:${FONT};">
-            ${escapeHtml(row.label)}
-          </td>
-          <td style="padding:18px 4px;${border}vertical-align:top;color:#111827;font-size:15px;font-weight:600;line-height:1.55;font-family:${FONT};word-break:break-word;">
-            ${valueHtml}
+          <td style="padding:14px 0 16px;${border}font-family:${FONT};">
+            <div style="color:#9ca3af;font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:5px;">
+              ${escapeHtml(row.label)}
+            </div>
+            <div style="color:#111827;font-size:15px;font-weight:600;line-height:1.6;word-break:break-word;overflow-wrap:anywhere;">
+              ${valueHtml}
+            </div>
           </td>
         </tr>`;
     })
@@ -91,21 +95,21 @@ function buildEmailHtml(opts: {
 <html lang="en">
 <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head>
 <body style="margin:0;padding:0;background:#eef1f5;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef1f5;padding:28px 14px;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef1f5;padding:28px 10px;">
     <tr>
       <td align="center">
         <!-- Outer curved card -->
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #e5e7eb;">
           <!-- Header -->
           <tr>
-            <td style="background:#0b1220;padding:26px 34px;border-radius:20px 20px 0 0;">
+            <td style="background:#0b1220;padding:22px 24px;border-radius:20px 20px 0 0;">
               ${brandLogo()}
             </td>
           </tr>
 
           <!-- Body -->
           <tr>
-            <td style="padding:36px 34px 8px;font-family:${FONT};background:#ffffff;">
+            <td style="padding:32px 24px 8px;font-family:${FONT};background:#ffffff;">
               <h1 style="margin:0 0 18px;font-size:28px;line-height:1.25;font-weight:700;color:#111827;">${escapeHtml(opts.title)}</h1>
               <p style="margin:0 0 8px;font-size:15px;line-height:1.6;color:#374151;">${escapeHtml(opts.greeting)}</p>
               <p style="margin:0 0 28px;font-size:15px;line-height:1.7;color:#6b7280;">${escapeHtml(opts.intro)}</p>
@@ -132,12 +136,12 @@ function buildEmailHtml(opts: {
           </tr>
 
           <tr>
-            <td style="padding:18px 34px 0;background:#ffffff;"></td>
+            <td style="padding:18px 24px 0;background:#ffffff;"></td>
           </tr>
 
           <!-- Footer: left-aligned like One School, curved bottom corners -->
           <tr>
-            <td style="background:#0b1220;padding:26px 34px 28px;text-align:left;border-radius:0 0 20px 20px;">
+            <td style="background:#0b1220;padding:22px 24px 24px;text-align:left;border-radius:0 0 20px 20px;">
               ${brandLogo()}
               <p style="margin:14px 0 0;font-size:12px;line-height:1.7;color:#94a3b8;font-family:${FONT};text-align:left;">
                 <a href="${SITE_URL}" style="color:#94a3b8;text-decoration:none;">onepathsolutions.com</a>
