@@ -12,16 +12,31 @@ type ContactPayload = {
   message?: string;
 };
 
-const RECIPIENTS = ['info@onepathsolutions.com', 'khan500823@gmail.com'];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SUPPORT_EMAIL = 'info@onepathsolutions.com';
+const SUPPORT_PHONE = '+91 96523 01382';
+const SITE_URL = 'https://one-hr.onepathsolutions.com';
 
 function resolveMailConfig() {
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = Number(process.env.SMTP_PORT || 587);
+  const secure =
+    String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465;
   const user = process.env.SMTP_USER || process.env.EMAIL_USER;
-  const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
-  const from = process.env.SMTP_FROM || process.env.EMAIL_FROM || (user ? `"One HR Contact" <${user}>` : undefined);
-  return { host, port, user, pass, from };
+  const pass =
+    process.env.SMTP_PASSWORD ||
+    process.env.SMTP_PASS ||
+    process.env.EMAIL_PASS;
+  const from =
+    process.env.SMTP_FROM ||
+    process.env.EMAIL_FROM ||
+    (user ? `One HR <${user}>` : undefined);
+  const notifyTo =
+    process.env.SMTP_NOTIFY_TO ||
+    process.env.CONTACT_NOTIFY_TO ||
+    'onepathbs@gmail.com';
+
+  return { host, port, secure, user, pass, from, notifyTo };
 }
 
 const escapeHtml = (s: string) =>
@@ -32,43 +47,132 @@ const escapeHtml = (s: string) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 
-function buildHtml(p: Required<Omit<ContactPayload, 'services'>> & { services: string[] }) {
-  const servicesHtml =
-    p.services.length > 0
-      ? p.services
-          .map(
-            (s) =>
-              `<span style="display:inline-block;background:#e0f2fe;color:#0369a1;padding:4px 10px;border-radius:999px;font-size:12px;margin:2px 4px 2px 0;">${escapeHtml(
-                s
-              )}</span>`
-          )
-          .join('')
-      : '<em style="color:#64748b">No services selected</em>';
+const FONT =
+  "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 
+function brandLogo() {
   return `
-  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f1f5f9;padding:24px;">
-    <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(2,6,23,0.08);">
-      <div style="background:linear-gradient(135deg,#0ea5e9 0%,#3b82f6 100%);padding:28px 32px;color:#ffffff;">
-        <h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;">New Contact Inquiry</h1>
-        <p style="margin:6px 0 0;font-size:13px;opacity:0.9;">One HR — Landing Page Contact Form</p>
-      </div>
-      <div style="padding:28px 32px;color:#0f172a;">
-        <table style="width:100%;border-collapse:collapse;font-size:14px;">
-          <tr><td style="padding:8px 0;color:#64748b;width:130px;">Full name</td><td style="padding:8px 0;font-weight:600;">${escapeHtml(p.name)}</td></tr>
-          <tr><td style="padding:8px 0;color:#64748b;">Email</td><td style="padding:8px 0;font-weight:600;"><a href="mailto:${encodeURIComponent(p.email)}" style="color:#0369a1;text-decoration:none;">${escapeHtml(p.email)}</a></td></tr>
-          <tr><td style="padding:8px 0;color:#64748b;">Company</td><td style="padding:8px 0;font-weight:600;">${escapeHtml(p.company) || '<em style="color:#94a3b8;font-weight:400;">—</em>'}</td></tr>
-          <tr><td style="padding:8px 0;color:#64748b;vertical-align:top;">Services</td><td style="padding:8px 0;">${servicesHtml}</td></tr>
+    <div style="font-family:${FONT};font-size:26px;line-height:1;letter-spacing:-0.02em;text-align:left;">
+      <span style="color:#ffffff;font-weight:400;">One </span><span style="color:#ffffff;font-weight:800;">HR</span><span style="display:inline-block;width:8px;height:8px;background:#2582ff;border-radius:1.5px;margin-left:3px;vertical-align:6px;"></span>
+    </div>`;
+}
+
+function submissionRows(
+  rows: { label: string; value: string; isEmail?: boolean }[]
+) {
+  return rows
+    .map((row, i) => {
+      const border =
+        i === rows.length - 1 ? '' : 'border-bottom:1px solid #eceff3;';
+      let valueHtml = escapeHtml(row.value || '—');
+      if (row.isEmail && row.value) {
+        valueHtml = `<a href="mailto:${escapeHtml(row.value)}" style="color:#2563eb;text-decoration:none;font-weight:600;">${escapeHtml(row.value)}</a>`;
+      }
+      return `
+        <tr>
+          <td style="padding:18px 4px;${border}width:118px;vertical-align:top;color:#9ca3af;font-size:13px;font-weight:500;font-family:${FONT};">
+            ${escapeHtml(row.label)}
+          </td>
+          <td style="padding:18px 4px;${border}vertical-align:top;color:#111827;font-size:15px;font-weight:600;line-height:1.55;font-family:${FONT};word-break:break-word;">
+            ${valueHtml}
+          </td>
+        </tr>`;
+    })
+    .join('');
+}
+
+function buildEmailHtml(opts: {
+  title: string;
+  greeting: string;
+  intro: string;
+  rows: { label: string; value: string; isEmail?: boolean }[];
+}) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head>
+<body style="margin:0;padding:0;background:#eef1f5;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef1f5;padding:28px 14px;">
+    <tr>
+      <td align="center">
+        <!-- Outer curved card -->
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #e5e7eb;">
+          <!-- Header -->
+          <tr>
+            <td style="background:#0b1220;padding:26px 34px;border-radius:20px 20px 0 0;">
+              ${brandLogo()}
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 34px 8px;font-family:${FONT};background:#ffffff;">
+              <h1 style="margin:0 0 18px;font-size:28px;line-height:1.25;font-weight:700;color:#111827;">${escapeHtml(opts.title)}</h1>
+              <p style="margin:0 0 8px;font-size:15px;line-height:1.6;color:#374151;">${escapeHtml(opts.greeting)}</p>
+              <p style="margin:0 0 28px;font-size:15px;line-height:1.7;color:#6b7280;">${escapeHtml(opts.intro)}</p>
+
+              <!-- Submission card with curved corners -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb;border-radius:16px;background:#fafbfc;">
+                <tr>
+                  <td style="padding:8px 22px 6px;">
+                    <p style="margin:14px 0 4px;font-size:11px;font-weight:700;letter-spacing:0.14em;color:#2563eb;text-transform:uppercase;font-family:${FONT};">Your submission</p>
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                      ${submissionRows(opts.rows)}
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:28px 0 8px;font-size:14px;line-height:1.7;color:#6b7280;">
+                If you need anything urgently, reach us at
+                <a href="mailto:${SUPPORT_EMAIL}" style="color:#2563eb;text-decoration:underline;">${SUPPORT_EMAIL}</a>
+                or
+                <a href="tel:+919652301382" style="color:#2563eb;text-decoration:underline;">${SUPPORT_PHONE}</a>.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:18px 34px 0;background:#ffffff;"></td>
+          </tr>
+
+          <!-- Footer: left-aligned like One School, curved bottom corners -->
+          <tr>
+            <td style="background:#0b1220;padding:26px 34px 28px;text-align:left;border-radius:0 0 20px 20px;">
+              ${brandLogo()}
+              <p style="margin:14px 0 0;font-size:12px;line-height:1.7;color:#94a3b8;font-family:${FONT};text-align:left;">
+                <a href="${SITE_URL}" style="color:#94a3b8;text-decoration:none;">onepathsolutions.com</a>
+                &nbsp;·&nbsp;
+                <a href="mailto:${SUPPORT_EMAIL}" style="color:#94a3b8;text-decoration:none;">${SUPPORT_EMAIL}</a>
+                &nbsp;·&nbsp;
+                <a href="tel:+919652301382" style="color:#94a3b8;text-decoration:none;">${SUPPORT_PHONE}</a>
+              </p>
+            </td>
+          </tr>
         </table>
-        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #e2e8f0;">
-          <p style="margin:0 0 8px;color:#64748b;font-size:13px;">Message</p>
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;white-space:pre-wrap;line-height:1.6;color:#0f172a;font-size:14px;">${escapeHtml(p.message)}</div>
-        </div>
-      </div>
-      <div style="background:#f8fafc;padding:16px 32px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;">
-        Sent automatically from the One HR landing page contact form.
-      </div>
-    </div>
-  </div>`;
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+function buildPlainText(opts: {
+  title: string;
+  greeting: string;
+  intro: string;
+  rows: { label: string; value: string }[];
+}) {
+  return [
+    opts.title,
+    '',
+    opts.greeting,
+    opts.intro,
+    '',
+    'YOUR SUBMISSION',
+    ...opts.rows.map((r) => `${r.label}: ${r.value || '—'}`),
+    '',
+    `If you need anything urgently, reach us at ${SUPPORT_EMAIL} or ${SUPPORT_PHONE}.`,
+  ].join('\n');
 }
 
 export async function POST(request: Request) {
@@ -77,14 +181,15 @@ export async function POST(request: Request) {
   try {
     body = (await request.json()) as ContactPayload;
   } catch {
-    console.error(`[contact:${requestId}] invalid JSON body`);
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
   const name = (body.name || '').trim();
   const email = (body.email || '').trim();
   const company = (body.company || '').trim();
-  const services = Array.isArray(body.services) ? body.services.map((s) => String(s)).filter(Boolean) : [];
+  const services = Array.isArray(body.services)
+    ? body.services.map((s) => String(s)).filter(Boolean)
+    : [];
   const message = (body.message || '').trim();
 
   if (!name || !email || !message) {
@@ -97,51 +202,83 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Please provide a valid email address.' }, { status: 400 });
   }
 
-  const { host, port, user, pass, from } = resolveMailConfig();
+  const { host, port, secure, user, pass, from, notifyTo } = resolveMailConfig();
 
-  if (!user || !pass) {
-    console.error(
-      `[contact:${requestId}] Missing mail env vars. Expected SMTP_USER/SMTP_PASS or EMAIL_USER/EMAIL_PASS.`
-    );
+  if (!user || !pass || !from) {
+    console.error(`[contact:${requestId}] Missing SMTP credentials`);
     return NextResponse.json(
       { error: 'Email service is not configured. Please contact the site administrator.' },
       { status: 500 }
     );
   }
 
+  const rows = [
+    { label: 'Name', value: name },
+    { label: 'Email', value: email, isEmail: true },
+    { label: 'Company', value: company || '—' },
+    { label: 'Services', value: services.length ? services.join(', ') : '—' },
+    { label: 'Message', value: message },
+  ];
+
+  const clientHtml = buildEmailHtml({
+    title: 'Your request is noted',
+    greeting: `Hi ${name},`,
+    intro:
+      'Thank you for contacting One HR. Your request has been received and our team will get back to you shortly.',
+    rows,
+  });
+  const clientText = buildPlainText({
+    title: 'Your request is noted',
+    greeting: `Hi ${name},`,
+    intro:
+      'Thank you for contacting One HR. Your request has been received and our team will get back to you shortly.',
+    rows,
+  });
+
+  const receiverHtml = buildEmailHtml({
+    title: 'New contact request',
+    greeting: 'Hello One HR team,',
+    intro: `A new enquiry was submitted on the One HR website by ${name}.`,
+    rows,
+  });
+  const receiverText = buildPlainText({
+    title: 'New contact request',
+    greeting: 'Hello One HR team,',
+    intro: `A new enquiry was submitted on the One HR website by ${name}.`,
+    rows,
+  });
+
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465,
+    secure,
     auth: { user, pass },
   });
 
-  const html = buildHtml({ name, email, company, services, message });
-  const text = [
-    `New Contact Inquiry`,
-    ``,
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Company: ${company || '—'}`,
-    `Services: ${services.length ? services.join(', ') : '—'}`,
-    ``,
-    `Message:`,
-    message,
-  ].join('\n');
-
   try {
     console.log(
-      `[contact:${requestId}] Sending mail via host=${host} port=${port} as=${user} to=${RECIPIENTS.join(',')}`
+      `[contact:${requestId}] Sending client+receiver mail via ${host}:${port} as=${user} notify=${notifyTo}`
     );
-    await transporter.sendMail({
-      from,
-      to: RECIPIENTS.join(', '),
-      replyTo: `"${name}" <${email}>`,
-      subject: `New One HR enquiry from ${name}${company ? ` (${company})` : ''}`,
-      text,
-      html,
-    });
-    console.log(`[contact:${requestId}] Mail sent successfully`);
+
+    await Promise.all([
+      transporter.sendMail({
+        from,
+        to: email,
+        subject: 'Your One HR request is noted',
+        text: clientText,
+        html: clientHtml,
+      }),
+      transporter.sendMail({
+        from,
+        to: notifyTo,
+        replyTo: `"${name}" <${email}>`,
+        subject: `New One HR enquiry from ${name}${company ? ` (${company})` : ''}`,
+        text: receiverText,
+        html: receiverHtml,
+      }),
+    ]);
+
+    console.log(`[contact:${requestId}] Both emails sent successfully`);
   } catch (err) {
     console.error(`[contact:${requestId}] sendMail failed:`, err);
     return NextResponse.json(

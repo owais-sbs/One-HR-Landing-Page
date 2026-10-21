@@ -13,9 +13,8 @@ import {
   CheckCircle2, Users, Clock, CalendarDays, Banknote, BarChart3, UserCog,
   Heart, Activity, DollarSign, Handshake, Award, Lightbulb,
   ShieldCheck, Target, TrendingUp, Mail, Phone, MapPin, ArrowRight,
-  ChevronDown, Check, X,
+  ChevronDown, Check, X, Loader2,
 } from 'lucide-react';
-import { buildContactWhatsAppMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 
 // ─────────────────────────────────────────────
 // Hero
@@ -1321,23 +1320,36 @@ function ServicesMultiSelect({
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
   const [services, setServices] = useState<string[]>([]);
-  const [status, setStatus] = useState<'idle' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setStatus('error');
       setErrorMsg('Please fill in your name, email, and message.');
       return;
     }
-    setStatus('idle');
+    setStatus('sending');
     setErrorMsg('');
-    const text = buildContactWhatsAppMessage({ ...form, services });
-    window.open(buildWhatsAppUrl(text), '_blank', 'noopener,noreferrer');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, services }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || 'Failed to send message');
+      setStatus('success');
+      setForm({ name: '', email: '', company: '', message: '' });
+      setServices([]);
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -1411,6 +1423,12 @@ export function Contact() {
               inputClassName="rounded-3xl shadow-lg border border-[#0ea5e9]/50 bg-[#0ea5e9]/10 text-white placeholder-gray-400 text-sm font-medium focus:ring-2 focus:ring-[#0ea5e9] focus:bg-[#0ea5e9]/20 transition-colors"
             />
 
+            {status === 'success' && (
+              <div className="rounded-2xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200 flex items-center gap-2">
+                <CheckCircle2 size={16} />
+                Thanks! Your message has been sent. Check your email for a confirmation.
+              </div>
+            )}
             {status === 'error' && errorMsg && (
               <div className="rounded-2xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200 flex items-center gap-2">
                 <X size={16} />
@@ -1423,9 +1441,17 @@ export function Contact() {
                 type="submit"
                 variant="secondary"
                 size="lg"
-                className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold"
+                disabled={status === 'sending'}
+                className="shadow-lg bg-gradient-to-r from-cyan-400 to-blue-400 border-none font-bold disabled:opacity-70"
               >
-                SEND YOUR MESSAGE
+                {status === 'sending' ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin mr-2" />
+                    SENDING…
+                  </>
+                ) : (
+                  'SEND YOUR MESSAGE'
+                )}
               </Button>
             </div>
           </form>
